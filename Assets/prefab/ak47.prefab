@@ -102,7 +102,7 @@ MonoBehaviour:
   WeaponName: 
   damage: 64
   maxammo: 30
-  magazine: 322
+  magazine: 30
   magazineCapacity: 30
   firecooltime: 0.1
   reloadtime: 3

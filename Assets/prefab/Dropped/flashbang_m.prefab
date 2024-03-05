@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3149350803256316750}
   - component: {fileID: -8481286136873759373}
   - component: {fileID: -3037100150183322292}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: flashbang_m
   m_TagString: Untagged
   m_Icon: {fileID: 0}

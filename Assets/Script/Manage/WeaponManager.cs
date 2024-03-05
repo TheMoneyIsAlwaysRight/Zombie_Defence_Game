@@ -60,12 +60,8 @@ public class WeaponManager : MonoBehaviour
     {
         if (value.isPressed)
         {
-            if (curweapon == null)
-            {
-                Debug.Log("현재 무기가 null입니다.");
-            }
-            else
-            {
+            if (curweapon != null)
+            { 
                 firecoroutine = StartCoroutine(curweapon.GetComponent<Weapon>().FireCoroutine());
             }
         }

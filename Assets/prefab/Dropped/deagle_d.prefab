@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8650741135505358361}
   - component: {fileID: 5660627672584720734}
   - component: {fileID: 6136508569308467556}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: deagle_d
   m_TagString: Untagged
   m_Icon: {fileID: 0}

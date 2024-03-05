@@ -29,6 +29,12 @@ public class Weapon : MonoBehaviour
     {
         WeaponName = gameObject.name;
     }
+
+    /*
+     * 이 주석 아래 항목들을 WeaponManager C#파일로 옮겨야한다.
+     * Weapon 항목에서 장전,장전 코루틴,발사,발사 코루틴은 가독성이 좋지 않다.
+     */
+
     public IEnumerator FireCoroutine()
     {
         while (true)
@@ -67,10 +73,20 @@ public class Weapon : MonoBehaviour
 
     public void Reload()
     {
-        if(magazine < magazineCapacity)
+        if(maxammo > magazineCapacity) 
         {
             maxammo -= magazineCapacity - magazine;
             magazine = magazineCapacity;
         }
+        else if(maxammo <= magazineCapacity && (maxammo != 0))
+        {
+            magazine = maxammo;
+            maxammo = 0;
+        }
+        else
+        {
+            Debug.Log("탄약이 다 떨어졌습니다. 상점에서 무기를 사거나, 다른 무기를 찾으십시오.");
+        }
+
     }
 }
