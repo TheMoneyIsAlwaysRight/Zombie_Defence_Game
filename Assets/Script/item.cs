@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class item : MonoBehaviour
 {
-    [SerializeField] GameObject HandWeapon;
+    [Header("Number")]
+    [SerializeField] public int weaponnumber;
+    [Header("Style")]
+    [SerializeField] public int weaponstyle;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Player>())
         {
-            collision.gameObject.GetComponent<Player>().GetComponentInChildren<Hand>().PickUpWeapon(HandWeapon);
-            Destroy(gameObject);
+            collision.gameObject.GetComponent<Player>().GetComponentInChildren<WeaponManager>().PickUpWeapon(gameObject);
         }
     }
 }

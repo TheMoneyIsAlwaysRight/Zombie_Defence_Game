@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4158691527852826312}
   - component: {fileID: 1565993036198395737}
-  - component: {fileID: 6888972841498628206}
+  - component: {fileID: 7359208797825190503}
   m_Layer: 3
   m_Name: Knife
   m_TagString: Untagged
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -317216871
-  m_SortingLayer: 3
+  m_SortingLayerID: -634650253
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6d6e67c96fc82304b8ee7d502629b51c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6888972841498628206
+--- !u!114 &7359208797825190503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,18 +94,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1335018278869125617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f88e0d046b81874f8c89556f9254dbf, type: 3}
+  m_Script: {fileID: 11500000, guid: a09592a1536210643aa8c9e4ad74104b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  price: 0
-  damage: 0
-  maxammo: 0
-  bullet: 0
-  firecooltime: 0
-  reloadtime: 0
-  dropPrefab: {fileID: 1335018278869125617}
-  layerToHit:
-    serializedVersion: 2
-    m_Bits: 0
+  weaponnumber: 50
+  weaponstyle: 2
+  WeaponName: 
+  damage: 64
+  maxammo: 30
+  magazine: 30
+  magazineCapacity: 30
+  firecooltime: 6.42
+  reloadtime: 3
+  dropPrefab: {fileID: 0}
   firepoint: {fileID: 0}

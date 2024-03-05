@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2382236747783286649}
   - component: {fileID: 7412755038345365241}
-  - component: {fileID: 682525997565332854}
+  - component: {fileID: 3316738049987348775}
   m_Layer: 3
   m_Name: awp
   m_TagString: Untagged
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -317216871
-  m_SortingLayer: 2
+  m_SortingLayerID: -634650253
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bd7314a2dde64f54fb3e2c6220797341, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &682525997565332854
+--- !u!114 &3316738049987348775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,15 +94,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 9113388357266988505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d84656def9aa7c043b86b8be0314a6fe, type: 3}
+  m_Script: {fileID: 11500000, guid: a09592a1536210643aa8c9e4ad74104b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  maxammo: 0
-  magazine: 0
-  magazineCapacity: 0
-  firecooltime: 0
-  reloadtime: 0
+  weaponnumber: 35
+  weaponstyle: 0
+  WeaponName: 
+  damage: 64
+  maxammo: 30
+  magazine: 30
+  magazineCapacity: 30
+  firecooltime: 6.42
+  reloadtime: 3
   dropPrefab: {fileID: 2389188657431610390, guid: 2b5ef652759dd7a4fa46e1074a772619, type: 3}
   firepoint: {fileID: 0}
-  Player: {fileID: 0}
