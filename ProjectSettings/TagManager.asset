@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Weapon
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Ground
+  - Water
+  - UI
+  - Wall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 3896013045
+    locked: 0
+  - name: item
+    uniqueID: 3977750425
+    locked: 0
+  - name: Wall
+    uniqueID: 1031024861
+    locked: 0
+  - name: Hand
+    uniqueID: 3660317043
+    locked: 0
+  - name: Human
+    uniqueID: 3519673837
+    locked: 0
+  - name: Fore
+    uniqueID: 1573046995
+    locked: 0
+  - name: UI
+    uniqueID: 1430871241
+    locked: 0
