@@ -1,41 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class AI : MonoBehaviour
+public class AI : Human
 {
-    enum State
-    {
-        shopping,
-        mission,
-        trace,
-        attack,
-        die,
-    }
+    [SerializeField] float movespeed;
+    Vector2 moveDir;
+    public static Vector2 mouse;
+    float angle;
 
-    State curstate;
-
-    private void Update()
-    {
-       
-    }
-    void Shopping()
-    {
-    }
-    void attack()
+    void AIeye() // Ai의 시야
     {
 
     }
-    void Mission()
+    void Update()
+    {
+        this.Hpcheck();
+        AIeye();
+        gameObject.transform.Translate(moveDir * movespeed * Time.deltaTime,Space.World);
+    }
+    void AiMove() //Ai의 움직임
     {
 
     }
-    void Trace()
-    {
 
-    }
-    void Die()
-    {
-
-    }
 }

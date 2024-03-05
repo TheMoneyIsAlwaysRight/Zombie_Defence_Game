@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamagable
 {
-    public void Damage(Human human,int damage) //human
+    public void Damage(Human human, int damage) //human
     {
         human.hp -= damage;
     }

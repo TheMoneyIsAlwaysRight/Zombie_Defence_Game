@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     void checkCurweapon()
     {
-        //this.maxammo.text = (WeaponManager.curweapon.maxammo).ToString();
-        //this.magazine.text = (WeaponManager.curweapon.magazine).ToString();
+        this.maxammo.text = (WeaponManager.curweapon.maxammo).ToString();
+        this.magazine.text = (WeaponManager.curweapon.magazine).ToString();
     }
 }

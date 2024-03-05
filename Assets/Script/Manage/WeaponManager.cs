@@ -8,11 +8,11 @@ using UnityEngine.InputSystem;
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] Weapon[] HAND = new Weapon[5]; //현재 가진 무기 목록
-    [SerializeField] Dictionary<int,Weapon> WeaponInfo = new Dictionary<int,Weapon>(); // 무기 매니저 활성화, 비활성화 여부
+    [SerializeField] Dictionary<int,Weapon> WeaponInfo = new Dictionary<int,Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
     [SerializeField] string CurrentWeapon;
 
-    public Weapon curweapon;
+    public static Weapon curweapon;
 
     Coroutine firecoroutine;
     Coroutine reloadcoroutine;
@@ -24,17 +24,15 @@ public class WeaponManager : MonoBehaviour
         for (int x = 0; x < Weapons.Length; x++)
         {
             WeaponInfo.Add(Weapons[x].GetComponent<Weapon>().weaponnumber, Weapons[x]);
-            Debug.Log(Weapons[x].GetComponent<Weapon>().weaponnumber);
         }
 
         HAND[2] = WeaponInfo[50]; // weapon number 50 -> knife
         Weapon[] setweapon = gameObject.GetComponentsInChildren<Weapon>();
 
-        foreach(Weapon a in setweapon)
+        foreach(Weapon a in setweapon) //모든 무기 비활성화
         {
             a.gameObject.SetActive(false);
         }
-        Debug.Log("모든 무기 비활성화");
 
         curweapon = HAND[2];
 
@@ -158,10 +156,6 @@ public class WeaponManager : MonoBehaviour
            curweapon = HAND[0];
            curweapon.gameObject.SetActive(true);
         }
-        else
-        {
-            Debug.Log("현재 그 번호에 무기가 없다.");
-        }
 
     }
     void OnPistol(InputValue button)
@@ -173,11 +167,6 @@ public class WeaponManager : MonoBehaviour
             curweapon = HAND[1];
             curweapon.gameObject.SetActive(true);
         }
-        else
-        {
-            Debug.Log("현재 그 번호에 무기가 없다.");
-        }
-
 
     }
     void OnMelee(InputValue button)
@@ -188,10 +177,6 @@ public class WeaponManager : MonoBehaviour
             curweapon.gameObject.SetActive(false);
             curweapon = HAND[2];
             curweapon.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("현재 그 번호에 무기가 없다.");
         }
 
     }
@@ -204,11 +189,6 @@ public class WeaponManager : MonoBehaviour
             curweapon = HAND[3];
             curweapon.gameObject.SetActive(true);
         }
-        else
-        {
-            Debug.Log("현재 그 번호에 무기가 없다.");
-        }
-
 
     }
     void OnBomb(InputValue button)
@@ -219,10 +199,6 @@ public class WeaponManager : MonoBehaviour
             curweapon.gameObject.SetActive(false);
             curweapon = HAND[4];
             curweapon.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("현재 그 번호에 무기가 없다.");
         }
 
     }
