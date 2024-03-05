@@ -59,12 +59,10 @@ public class Weapon : MonoBehaviour
                     ray.collider.gameObject.GetComponent<IDamagable>().Damage(human, damage);
                 }
             }
-            Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 0.2f);
+            Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
             magazine--;
         }
-        else
-        {
-        }
+
     }
 
     public void Reload()

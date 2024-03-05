@@ -47,17 +47,17 @@ TagManager:
   - name: Ground
     uniqueID: 3896013045
     locked: 0
-  - name: item
+  - name: DroppedWeapon
     uniqueID: 3977750425
-    locked: 0
-  - name: Wall
-    uniqueID: 1031024861
-    locked: 0
-  - name: Hand
-    uniqueID: 3660317043
     locked: 0
   - name: Human
     uniqueID: 3519673837
+    locked: 0
+  - name: Weapon
+    uniqueID: 3660317043
+    locked: 0
+  - name: Wall
+    uniqueID: 1031024861
     locked: 0
   - name: Fore
     uniqueID: 1573046995
