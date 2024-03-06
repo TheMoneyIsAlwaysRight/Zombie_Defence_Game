@@ -87,8 +87,6 @@ public class WeaponManager : MonoBehaviour
     {
         if (user != null)
         {
-
-
             user.Reload(curweapon);
             reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon));
         }

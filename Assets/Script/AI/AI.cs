@@ -24,6 +24,7 @@ public class AI : Human
         {
             float Dot = Vector3.Dot(targetVector.normalized, transform.up); //두 백터 내적 결과를
             float theta = Mathf.Acos(Dot); //아크 코사인(역코사인)을 통해 세타(각) 구하기.
+
             float degree = Mathf.Rad2Deg * theta;
 
             if(degree <= angleRange)
@@ -40,19 +41,12 @@ public class AI : Human
 
     private void OnDrawGizmos()
     {
-        Handles.color = new Color(0f, 0f, 1f, 0.2f);
+        Handles.color = new Color(2f, 0f, 0f,0.1f);
 
         Handles.DrawSolidArc(transform.position, transform.forward, transform.up, angleRange / 2, distance); 
         
         Handles.DrawSolidArc(transform.position, transform.forward, transform.up, -angleRange / 2, distance);
     }
-
-
-
-
-
-
-
 
 
 
