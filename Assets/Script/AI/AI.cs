@@ -13,23 +13,20 @@ public class AI : Human
 
     [SerializeField] Transform target;
 
-    float angleRange = 30f; // 각도범위
-    float radius = 3f; // 부채꼴(시야)의 반지름 크기.
-
-    Color _blue = new Color(0f, 0f, 1f, 0.2f);
-    Color _red = new Color(1f, 0f, 0f, 0.2f);
+    float angleRange = 90f; // 각도범위
+    float distance = 15f; // 부채꼴(시야)의 반지름 크기.
 
     void AIeye() // Ai의 시야
     {
         Vector3 targetVector = (target.transform.position - gameObject.transform.position); // 나와 적과의 벡터
 
-        if (targetVector.magnitude < radius) //나와 적과의 거리가 지름 크기 보다 작다면
+        if (targetVector.magnitude < distance) //나와 적과의 거리가 지름 크기 보다 작다면
         {
-            float Dot = Vector3.Dot(targetVector.normalized, transform.forward); //두 백터 내적 결과를
+            float Dot = Vector3.Dot(targetVector.normalized, transform.up); //두 백터 내적 결과를
             float theta = Mathf.Acos(Dot); //아크 코사인(역코사인)을 통해 세타(각) 구하기.
             float degree = Mathf.Rad2Deg * theta;
 
-            if(degree >= angleRange)
+            if(degree <= angleRange)
             {
                 Debug.Log("적이 나를 발견했습니다.");
             }
@@ -37,26 +34,17 @@ public class AI : Human
             {
                 Debug.Log("적이 나를 놓쳤습니다.");
             }
-
-            /*
-             * Mathf.Rad2Deg => 라디안 값 -> 각도
-             * Mathf.Deg2Rad => 각도 -> 라디안 값
-             * 
-             * 
-             */
-        }
-        else
-        {
-            Debug.Log("적이 나를 발견하지 못했습니다.");
         }
 
     }
+
     private void OnDrawGizmos()
     {
-        Handles.color = _blue;
-        // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.up, angleRange / 2, radius);
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.up, -angleRange / 2, radius);
+        Handles.color = new Color(0f, 0f, 1f, 0.2f);
+
+        Handles.DrawSolidArc(transform.position, transform.forward, transform.up, angleRange / 2, distance); 
+        
+        Handles.DrawSolidArc(transform.position, transform.forward, transform.up, -angleRange / 2, distance);
     }
 
 

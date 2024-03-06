@@ -48,7 +48,14 @@ public class WeaponManager : MonoBehaviour
     {
         while (true)
         {
-            user.Fire(curweapon);
+            if (user != null)
+            {
+                user.Fire(curweapon);
+            }
+            else
+            {
+                Debug.Log($"{gameObject.transform.parent.gameObject.name}가 웨폰컨테이너를 사용할 수 없습니다.");
+            }
 
             yield return new WaitForSeconds(curweapon.firecooltime);
         }
@@ -78,8 +85,13 @@ public class WeaponManager : MonoBehaviour
 
     void OnReload()
     {
-        user.Reload(curweapon);
-        reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon));
+        if (user != null)
+        {
+
+
+            user.Reload(curweapon);
+            reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon));
+        }
     }
 
 
