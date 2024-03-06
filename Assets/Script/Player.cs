@@ -38,4 +38,47 @@ public class Player : Human
         moveDir.y = value.Get<Vector2>().y;
     }
 
+
+
+
+
+    public void Fire(Weapon curweapon)
+    {
+        if (curweapon.magazine > 0)
+        {
+
+            Vector3 fireDir = transform.up;
+            RaycastHit2D ray = Physics2D.Raycast(curweapon.firepoint.transform.position, fireDir);
+            if (ray.collider != null)
+            {
+                if (ray.collider.gameObject.GetComponent<Human>())
+                {
+                    Human human = ray.collider.gameObject.GetComponent<Human>();
+                    ray.collider.gameObject.GetComponent<IDamagable>().Damage(human,curweapon.damage);
+                }
+            }
+            Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
+            curweapon.magazine--;
+        }
+
+    }
+
+    public void Reload(Weapon curweapon)
+    {
+        if (curweapon.maxammo > curweapon.magazineCapacity)
+        {
+            curweapon.maxammo -= curweapon.magazineCapacity - curweapon.magazine;
+            curweapon.magazine = curweapon.magazineCapacity;
+        }
+        else if (curweapon.maxammo <= curweapon.magazineCapacity && (curweapon.maxammo != 0))
+        {
+            curweapon.magazine = curweapon.maxammo;
+            curweapon.maxammo = 0;
+        }
+        else
+        {
+            Debug.Log("탄약이 다 떨어졌습니다. 상점에서 무기를 사거나, 다른 무기를 찾으십시오.");
+        }
+
+    }
 }

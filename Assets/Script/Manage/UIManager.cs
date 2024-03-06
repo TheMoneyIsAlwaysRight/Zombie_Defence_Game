@@ -9,15 +9,18 @@ public class UIManager : MonoBehaviour
     //[SerializeField] TMP_Text ap;
     [SerializeField] TMP_Text maxammo;
     [SerializeField] TMP_Text magazine;
+    [SerializeField] WeaponManager playerweaponManager;
     void Update()
-    {
-        
+    {       
         checkCurweapon();
     }
 
     void checkCurweapon()
     {
-        this.maxammo.text = (WeaponManager.curweapon.maxammo).ToString();
-        this.magazine.text = (WeaponManager.curweapon.magazine).ToString();
+        if (playerweaponManager != null)
+        {
+            this.maxammo.text = (playerweaponManager.curweapon.maxammo).ToString();
+            this.magazine.text = (playerweaponManager.curweapon.magazine).ToString();
+        }
     }
 }

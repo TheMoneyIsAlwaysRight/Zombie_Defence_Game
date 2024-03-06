@@ -7,12 +7,11 @@ using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] Player user;
     [SerializeField] Weapon[] HAND = new Weapon[5]; //현재 가진 무기 목록
     [SerializeField] Dictionary<int,Weapon> WeaponInfo = new Dictionary<int,Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
-    [SerializeField] string CurrentWeapon;
-
-    public static Weapon curweapon;
+    [SerializeField] public Weapon curweapon; //현재 무기
 
     Coroutine firecoroutine;
     Coroutine reloadcoroutine;
@@ -44,26 +43,31 @@ public class WeaponManager : MonoBehaviour
     {
         FirstSetting();
     }
-    private void Update()
+
+    public IEnumerator FireCoroutine(Weapon curweapon)
     {
-        if (curweapon != null)
+        while (true)
         {
-            CurrentWeapon = $"{curweapon.name}";
+            user.Fire(curweapon);
+
+            yield return new WaitForSeconds(curweapon.firecooltime);
         }
-        else
-        {
-            CurrentWeapon = $"None";
-        }
+    }
+    public IEnumerator ReloadCoroutine(Weapon curweapon)
+    {
+
+        yield return new WaitForSeconds(curweapon.reloadtime);
     }
 
     void OnFire(InputValue value)
     {
+
         if (value.isPressed)
         {
             if (curweapon != null)
-            { 
-                firecoroutine = StartCoroutine(curweapon.GetComponent<Weapon>().FireCoroutine());
-            }
+            {
+                firecoroutine = StartCoroutine(FireCoroutine(curweapon));
+            }     
         }
         else
         {
@@ -71,6 +75,15 @@ public class WeaponManager : MonoBehaviour
         }
 
     }
+
+    void OnReload()
+    {
+        user.Reload(curweapon);
+        reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon));
+    }
+
+
+
     public void PickUpWeapon(GameObject pickupweapon)
     {
         int number = pickupweapon.GetComponent<item>().weaponnumber;
@@ -107,7 +120,6 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-
     void OnDropWeapon(InputValue value)
     {
         DropWeapon();
@@ -119,12 +131,12 @@ public class WeaponManager : MonoBehaviour
             curweapon.gameObject.SetActive(false);
 
             GameObject dropitem = curweapon.GetComponent<Weapon>().dropPrefab;
-            
+
             Instantiate(dropitem, droppoint.transform.position, transform.rotation);
 
-            for(int x=0;x<HAND.Length;x++) //무기를 버린 뒤 현재 무기 목록에서 지움.
+            for (int x = 0; x < HAND.Length; x++) //무기를 버린 뒤 현재 무기 목록에서 지움.
             {
-               if(curweapon == HAND[x])
+                if (curweapon == HAND[x])
                 {
                     HAND[x] = null;
                 }
@@ -137,11 +149,6 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("이 무기는 버릴 수 없다.");
         }
 
-    }
-
-    void OnReload()
-    {
-        reloadcoroutine = StartCoroutine(curweapon.GetComponent<Weapon>().ReloadCoroutine());
     }
     void OnRifle(InputValue button)
     {
