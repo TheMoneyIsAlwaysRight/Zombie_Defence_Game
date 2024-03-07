@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3176428197951951921}
   - component: {fileID: 7096342528596011365}
   - component: {fileID: 1075781207503825150}
-  - component: {fileID: 4199887283080014242}
+  - component: {fileID: 3860043202250449357}
   m_Layer: 3
   m_Name: aug_d
   m_TagString: Untagged
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponnumber: 33
   weaponstyle: 0
---- !u!61 &4199887283080014242
-BoxCollider2D:
+--- !u!58 &3860043202250449357
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -133,15 +133,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 0.75}
-    newSize: {x: 0.32, y: 0.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 0.75}
-  m_EdgeRadius: 0
+  m_Radius: 1

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7168513630352378050}
   - component: {fileID: 8650741135505358361}
-  - component: {fileID: 5660627672584720734}
   - component: {fileID: 6136508569308467556}
+  - component: {fileID: 7538437593930195473}
   m_Layer: 3
   m_Name: deagle_d
   m_TagString: Untagged
@@ -86,8 +86,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5660627672584720734
-BoxCollider2D:
+--- !u!114 &6136508569308467556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479919105691261347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a369767ccd9b16a46a527c66ba8c9622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponnumber: 3
+  weaponstyle: 1
+--- !u!58 &7538437593930195473
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,29 +133,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.6875}
-    newSize: {x: 1, y: 0.6875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6875}
-  m_EdgeRadius: 0
---- !u!114 &6136508569308467556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4479919105691261347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a369767ccd9b16a46a527c66ba8c9622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponnumber: 3
-  weaponstyle: 1
+  m_Radius: 0.5

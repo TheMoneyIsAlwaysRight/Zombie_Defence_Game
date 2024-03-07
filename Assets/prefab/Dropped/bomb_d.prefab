@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8302690350383750133}
   - component: {fileID: 4105734860535502428}
-  - component: {fileID: 6453403693981668704}
   - component: {fileID: 5439202299972342111}
+  - component: {fileID: 4109329076838859510}
   m_Layer: 3
   m_Name: bomb_d
   m_TagString: Untagged
@@ -86,8 +86,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6453403693981668704
-BoxCollider2D:
+--- !u!114 &5439202299972342111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407713109183638370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a369767ccd9b16a46a527c66ba8c9622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponnumber: 55
+  weaponstyle: 4
+--- !u!58 &4109329076838859510
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,29 +133,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
-  m_EdgeRadius: 0
---- !u!114 &5439202299972342111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2407713109183638370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a369767ccd9b16a46a527c66ba8c9622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponnumber: 55
-  weaponstyle: 4
+  m_Radius: 1
