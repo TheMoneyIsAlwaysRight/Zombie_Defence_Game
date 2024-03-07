@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     {       
         checkCurweapon();
     }
-
     void checkCurweapon()
     {
         if (playerweaponManager != null)
@@ -25,4 +24,5 @@ public class UIManager : MonoBehaviour
             this.magazine.text = (playerweaponManager.curweapon.magazine).ToString();
         }
     }
+
 }

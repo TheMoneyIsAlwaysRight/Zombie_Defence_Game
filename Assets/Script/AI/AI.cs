@@ -9,7 +9,6 @@ public class AI : Human
     [SerializeField] float movespeed;
     Vector2 moveDir;
     public static Vector2 mouse;
-    float angle;
 
     [SerializeField] Transform target;
 
@@ -18,25 +17,37 @@ public class AI : Human
 
     void AIeye() // Ai의 시야
     {
-        Vector3 targetVector = (target.transform.position - gameObject.transform.position); // 나와 적과의 벡터
+        /*Vector3 targetVector = (target.transform.position - gameObject.transform.position); // 나와 적과의 벡터
 
         if (targetVector.magnitude < distance) //나와 적과의 거리가 지름 크기 보다 작다면
         {
             float Dot = Vector3.Dot(targetVector.normalized, transform.up); //두 백터 내적 결과를
+
             float theta = Mathf.Acos(Dot); //아크 코사인(역코사인)을 통해 세타(각) 구하기.
 
             float degree = Mathf.Rad2Deg * theta;
 
             if(degree <= angleRange)
             {
-                Debug.Log("적이 나를 발견했습니다.");
+                float Dot_ = Vector3.Angle(targetVector, transform.up);
+
+                //gameObject.transform.rotation = Quaternion.AngleAxis(Dot_, Vector3.forward);
+                transform.up = targetVector.normalized;
             }
-            else
+        }*/
+
+        Vector2 targetVector = (target.transform.position - gameObject.transform.position);
+
+        if (targetVector.sqrMagnitude < distance * distance)
+        {
+            float angle = Vector2.Angle(targetVector.normalized, transform.up);
+
+            if (angle < angleRange)
             {
-                Debug.Log("적이 나를 놓쳤습니다.");
+                transform.up = targetVector.normalized;
+                
             }
         }
-
     }
 
     private void OnDrawGizmos()
@@ -49,19 +60,17 @@ public class AI : Human
     }
 
 
-
-
-
     void Update()
     {
         this.Hpcheck();
+
         AIeye();
-        gameObject.transform.Translate(moveDir * movespeed * Time.deltaTime,Space.World);
+        
+
     }
     void AiMove() //Ai의 움직임
     {
         this.Hpcheck();
-        gameObject.transform.Translate(moveDir * movespeed * Time.deltaTime, Space.World);
 
     }
 

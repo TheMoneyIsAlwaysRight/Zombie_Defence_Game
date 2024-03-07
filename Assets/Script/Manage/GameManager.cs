@@ -18,10 +18,10 @@ public class GameManager : MonoBehaviour
         CountSurvivor();
     }
 
-    void CountSurvivor()
+    static void CountSurvivor()
     {
-        TCount = GameObject.FindGameObjectsWithTag("Terrist");
-        CTCount = GameObject.FindGameObjectsWithTag("CounterTerrist");
+        TCount = GameObject.FindGameObjectsWithTag("T");
+        CTCount = GameObject.FindGameObjectsWithTag("CT");
         tcount = TCount.ToList<GameObject>();
         ctcount = CTCount.ToList<GameObject>();
 
@@ -30,19 +30,24 @@ public class GameManager : MonoBehaviour
 
         if(tcount.Count <= 0)
         {
-            Debug.Log("Counter Terrrist Is Win");
+            
+            GameObject.Find("Canvas").transform.Find("CTWIN").gameObject.SetActive(true);
+            GamePause();
         }
         else if (ctcount.Count <= 0)
         {
-            Debug.Log("Terrrist Is Win");
+            
+            GameObject.Find("Canvas").transform.Find("TWIN").gameObject.SetActive(true);
+
+            GamePause();
         }
     }
 
-    public void GamePause()
+   public static void GamePause()
    {
         Time.timeScale = 0f;
    }
-   public void GameResume()
+   public static void GameResume()
    {
         Time.timeScale = 1f;
    }

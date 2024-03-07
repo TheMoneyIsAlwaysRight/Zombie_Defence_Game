@@ -9,6 +9,7 @@ public class Player : Human
     Vector2 moveDir;
     public static Vector2 mouse;
     float angle;
+    [SerializeField] Animator animator;
 
     void cursor()
     {
@@ -47,16 +48,20 @@ public class Player : Human
 
             Vector3 fireDir = transform.up;
             RaycastHit2D ray = Physics2D.Raycast(curweapon.firepoint.transform.position, fireDir);
+            //RaycastHit2D ray = Physics2D.Linecast(curweapon.firepoint.transform.position, fireDir);
             if (ray.collider != null)
             {
+                animator.SetBool("Fire", true);
                 if (ray.collider.gameObject.GetComponent<Human>())
                 {
                     Human human = ray.collider.gameObject.GetComponent<Human>();
                     ray.collider.gameObject.GetComponent<IDamagable>().Damage(human,curweapon.damage);
                 }
+
             }
             Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
             curweapon.magazine--;
+            animator.SetBool("Fire", false);
         }
 
     }
