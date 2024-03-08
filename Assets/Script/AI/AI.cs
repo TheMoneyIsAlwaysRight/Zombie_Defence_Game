@@ -9,6 +9,7 @@ public class AI : Human
     [SerializeField] float movespeed;
     Vector2 moveDir;
     public static Vector2 mouse;
+    [SerializeField] WeaponManager weaponmanager;
 
     [SerializeField] Transform target;
 
@@ -45,7 +46,8 @@ public class AI : Human
             if (angle < angleRange)
             {
                 transform.up = targetVector.normalized;
-                
+                //yield return new WaitForSeconds(3);
+                Fire(weaponmanager.curweapon);
             }
         }
     }
@@ -59,13 +61,11 @@ public class AI : Human
         Handles.DrawSolidArc(transform.position, transform.forward, transform.up, -angleRange / 2, distance);
     }
 
-
     void Update()
     {
+        Debug.Log($"Ai got {weaponmanager.curweapon}");
         this.Hpcheck();
-
         AIeye();
-        
 
     }
     void AiMove() //Ai의 움직임

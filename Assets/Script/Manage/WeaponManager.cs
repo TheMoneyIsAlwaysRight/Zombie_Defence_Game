@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Dictionary<int,Weapon> WeaponInfo = new Dictionary<int,Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
     [SerializeField] public Weapon curweapon; //현재 무기
+   
 
     Coroutine firecoroutine;
     Coroutine reloadcoroutine;
@@ -51,6 +53,7 @@ public class WeaponManager : MonoBehaviour
             if (user != null)
             {
                 user.Fire(curweapon);
+                //animator.SetBool("Fire", true);
             }
             else
             {
@@ -58,12 +61,14 @@ public class WeaponManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(curweapon.firecooltime);
+            //animator.SetBool("Fire", false);
         }
     }
     public IEnumerator ReloadCoroutine(Weapon curweapon)
     {
-
+        //animator.SetBool("Reload", true);
         yield return new WaitForSeconds(curweapon.reloadtime);
+        //animator.SetBool("Reload", false);
     }
 
     void OnFire(InputValue value)
@@ -74,6 +79,7 @@ public class WeaponManager : MonoBehaviour
             if (curweapon != null)
             {
                 firecoroutine = StartCoroutine(FireCoroutine(curweapon));
+                
             }     
         }
         else
@@ -87,8 +93,10 @@ public class WeaponManager : MonoBehaviour
     {
         if (user != null)
         {
-            user.Reload(curweapon);
-            reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon));
+
+            bool IsReload = user.Reload(curweapon);
+            if (IsReload) //재장전에 성공하면
+            { reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon)); }
         }
     }
 

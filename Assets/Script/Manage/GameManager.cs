@@ -12,13 +12,16 @@ public class GameManager : MonoBehaviour
 
     static List<GameObject> tcount;
     static List<GameObject> ctcount;
+    [SerializeField] GameObject CTWIN;
+    [SerializeField] GameObject TWIN;
+
 
     void Update()
     {
         CountSurvivor();
     }
 
-    static void CountSurvivor()
+    void CountSurvivor()
     {
         TCount = GameObject.FindGameObjectsWithTag("T");
         CTCount = GameObject.FindGameObjectsWithTag("CT");
@@ -30,14 +33,13 @@ public class GameManager : MonoBehaviour
 
         if(tcount.Count <= 0)
         {
-            
-            GameObject.Find("Canvas").transform.Find("CTWIN").gameObject.SetActive(true);
+            CTWIN.SetActive(true);
+
             GamePause();
         }
         else if (ctcount.Count <= 0)
         {
-            
-            GameObject.Find("Canvas").transform.Find("TWIN").gameObject.SetActive(true);
+            TWIN.SetActive(true);
 
             GamePause();
         }

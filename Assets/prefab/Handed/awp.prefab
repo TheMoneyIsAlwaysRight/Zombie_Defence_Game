@@ -101,10 +101,10 @@ MonoBehaviour:
   weaponstyle: 0
   WeaponName: 
   damage: 64
-  maxammo: 30
-  magazine: 30
-  magazineCapacity: 30
-  firecooltime: 6.42
+  maxammo: 1097
+  magazine: 575
+  magazineCapacity: 934
+  firecooltime: 0.1
   reloadtime: 3
   dropPrefab: {fileID: 2389188657431610390, guid: 2b5ef652759dd7a4fa46e1074a772619, type: 3}
   firepoint: {fileID: 0}

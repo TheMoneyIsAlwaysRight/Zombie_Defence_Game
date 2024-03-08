@@ -9,7 +9,7 @@ public class Player : Human
     Vector2 moveDir;
     public static Vector2 mouse;
     float angle;
-    [SerializeField] Animator animator;
+    [SerializeField] FIRETRACKING firetrack; //총알의 궤적
 
     void cursor()
     {
@@ -45,13 +45,12 @@ public class Player : Human
     {
         if (curweapon.magazine > 0)
         {
-
             Vector3 fireDir = transform.up;
+            firetrack.gameObject.SetActive(true);
             RaycastHit2D ray = Physics2D.Raycast(curweapon.firepoint.transform.position, fireDir);
-            //RaycastHit2D ray = Physics2D.Linecast(curweapon.firepoint.transform.position, fireDir);
+
             if (ray.collider != null)
             {
-                animator.SetBool("Fire", true);
                 if (ray.collider.gameObject.GetComponent<Human>())
                 {
                     Human human = ray.collider.gameObject.GetComponent<Human>();
@@ -59,28 +58,32 @@ public class Player : Human
                 }
 
             }
+
             Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
             curweapon.magazine--;
-            animator.SetBool("Fire", false);
         }
 
     }
 
-    public void Reload(Weapon curweapon)
+    public bool Reload(Weapon curweapon)
     {
         if (curweapon.maxammo > curweapon.magazineCapacity)
         {
             curweapon.maxammo -= curweapon.magazineCapacity - curweapon.magazine;
             curweapon.magazine = curweapon.magazineCapacity;
+
+            return true;
         }
         else if (curweapon.maxammo <= curweapon.magazineCapacity && (curweapon.maxammo != 0))
         {
             curweapon.magazine = curweapon.maxammo;
             curweapon.maxammo = 0;
+            return true;
         }
         else
         {
             Debug.Log("탄약이 다 떨어졌습니다. 상점에서 무기를 사거나, 다른 무기를 찾으십시오.");
+            return false;
         }
 
     }
