@@ -1,20 +1,14 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-
-//public class Node
-//{
-//    public bool isWalkAble;
-//    public Vector3 worldPos;
-
-//    public Node(bool walkable,Vector3 WorldPos)
-//    {
-//        this.isWalkAble = walkable; //이동 가능 여부
-//        this.worldPos = WorldPos; // 이 노드의 유니티 상의 월드 좌표.
-//    }
-//}
-
-
-
-
+public class Node
+{
+    public bool walkable;
+    public Vector3 worldPosition;
+    public Node(bool walkable_,Vector3 worldPosition_)
+    {
+        walkable = walkable_;
+        worldPosition = worldPosition_;
+    }
+}

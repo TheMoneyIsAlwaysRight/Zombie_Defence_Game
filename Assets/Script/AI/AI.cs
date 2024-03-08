@@ -10,6 +10,7 @@ public class AI : Human
     Vector2 moveDir;
     public static Vector2 mouse;
     [SerializeField] WeaponManager weaponmanager;
+    [SerializeField] FIRETRACKING firetrack; //ÃÑ¾ËÀÇ ±ËÀû
 
     [SerializeField] Transform target;
 
@@ -48,6 +49,7 @@ public class AI : Human
                 transform.up = targetVector.normalized;
                 //yield return new WaitForSeconds(3);
                 Fire(weaponmanager.curweapon);
+                Debug.Log("ÀûÀÌ °ø°ÝÁß");
             }
         }
     }
@@ -64,6 +66,7 @@ public class AI : Human
     void Update()
     {
         Debug.Log($"Ai got {weaponmanager.curweapon}");
+
         this.Hpcheck();
         AIeye();
 
@@ -79,18 +82,12 @@ public class AI : Human
     {
         if (curweapon.magazine > 0)
         {
+            firetrack.gameObject.SetActive(true);
 
             Vector3 fireDir = transform.up;
-            RaycastHit2D ray = Physics2D.Raycast(curweapon.firepoint.transform.position, fireDir);
-            if (ray.collider != null)
-            {
-                if (ray.collider.gameObject.GetComponent<Human>())
-                {
-                    Human human = ray.collider.gameObject.GetComponent<Human>();
-                    ray.collider.gameObject.GetComponent<IDamagable>().Damage(human, curweapon.damage);
-                }
-            }
+
             Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
+
             curweapon.magazine--;
         }
 

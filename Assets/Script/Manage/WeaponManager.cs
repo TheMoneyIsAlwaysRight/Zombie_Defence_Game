@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Dictionary<int,Weapon> WeaponInfo = new Dictionary<int,Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
     [SerializeField] public Weapon curweapon; //현재 무기
+    bool weaponcooltime;
    
 
     Coroutine firecoroutine;
@@ -53,7 +54,6 @@ public class WeaponManager : MonoBehaviour
             if (user != null)
             {
                 user.Fire(curweapon);
-                //animator.SetBool("Fire", true);
             }
             else
             {
@@ -61,7 +61,7 @@ public class WeaponManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(curweapon.firecooltime);
-            //animator.SetBool("Fire", false);
+
         }
     }
     public IEnumerator ReloadCoroutine(Weapon curweapon)
@@ -76,15 +76,14 @@ public class WeaponManager : MonoBehaviour
 
         if (value.isPressed)
         {
-            if (curweapon != null)
+            if(curweapon != null)
             {
-                firecoroutine = StartCoroutine(FireCoroutine(curweapon));
-                
-            }     
+                firecoroutine = StartCoroutine(FireCoroutine(curweapon));               
+            }
         }
         else
         {
-            StopCoroutine(firecoroutine); 
+            StopCoroutine(firecoroutine);
         }
 
     }

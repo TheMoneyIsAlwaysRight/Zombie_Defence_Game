@@ -100,11 +100,11 @@ MonoBehaviour:
   weaponnumber: 55
   weaponstyle: 4
   WeaponName: 
-  damage: 64
-  maxammo: 1097
-  magazine: 575
-  magazineCapacity: 934
-  firecooltime: 0.1
+  damage: 15
+  maxammo: 100
+  magazine: 30
+  magazineCapacity: 30
+  firecooltime: 0.3
   reloadtime: 3
   dropPrefab: {fileID: 2407713109183638370, guid: 9a1aa2b07e8f91042bf1db1ce574b7b0, type: 3}
   firepoint: {fileID: 0}

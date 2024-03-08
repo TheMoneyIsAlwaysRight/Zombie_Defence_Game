@@ -47,19 +47,8 @@ public class Player : Human
         {
             Vector3 fireDir = transform.up;
             firetrack.gameObject.SetActive(true);
-            RaycastHit2D ray = Physics2D.Raycast(curweapon.firepoint.transform.position, fireDir);
 
-            if (ray.collider != null)
-            {
-                if (ray.collider.gameObject.GetComponent<Human>())
-                {
-                    Human human = ray.collider.gameObject.GetComponent<Human>();
-                    ray.collider.gameObject.GetComponent<IDamagable>().Damage(human,curweapon.damage);
-                }
-
-            }
-
-            Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
+           Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
             curweapon.magazine--;
         }
 

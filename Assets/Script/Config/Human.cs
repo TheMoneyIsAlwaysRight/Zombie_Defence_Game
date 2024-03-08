@@ -10,10 +10,11 @@ public class Human : MonoBehaviour, IDamagable
         T,
         CT
     }
+
     [SerializeField] bool T;
     [SerializeField] string Team;
     [SerializeField] public int hp; //체력
-    [SerializeField] protected int ap; //방탄복 수치
+    [SerializeField] public int ap; //방탄복 수치
     [SerializeField] protected int money;  //갖고 있는 돈 
     [SerializeField] protected bool isAi;  //플레이어가 조종중인지 아닌지
     /*

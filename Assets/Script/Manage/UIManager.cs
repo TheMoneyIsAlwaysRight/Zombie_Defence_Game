@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    //[SerializeField] TMP_Text hp;
-    //[SerializeField] TMP_Text ap;
+    [SerializeField] TMP_Text hp;
+    [SerializeField] TMP_Text ap;
     [SerializeField] TMP_Text maxammo;
     [SerializeField] TMP_Text magazine;
     [SerializeField] TMP_Text Curweapon;
     [SerializeField] WeaponManager playerweaponManager;
+    [SerializeField] Player player;
     void Update()
     {       
         checkCurweapon();
+        CheckState();
     }
     void checkCurweapon()
     {
@@ -23,6 +25,12 @@ public class UIManager : MonoBehaviour
             this.maxammo.text = (playerweaponManager.curweapon.maxammo).ToString();
             this.magazine.text = (playerweaponManager.curweapon.magazine).ToString();
         }
+    }
+    void CheckState()
+    {
+        this.hp.text = player.hp.ToString();
+        this.ap.text = player.ap.ToString();
+
     }
 
 }
