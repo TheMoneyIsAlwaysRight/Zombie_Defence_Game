@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
         tcount = TCount.ToList<GameObject>();
         ctcount = CTCount.ToList<GameObject>();
 
-        Debug.Log($"Terrist is {tcount.Count}");
-        Debug.Log($"Counter Terrist is {ctcount.Count}");
+        //Debug.Log($"Terrist is {tcount.Count}");
+        //Debug.Log($"Counter Terrist is {ctcount.Count}");
 
         if(tcount.Count <= 0)
         {

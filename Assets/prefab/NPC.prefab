@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7430199858379868110}
   - component: {fileID: 451369546818882965}
   - component: {fileID: 8707233530510622699}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: m4a1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 898435172811831492}
   - component: {fileID: 4087805614931192921}
   - component: {fileID: 2055415951370469736}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: m249
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 5426592743059542057}
   - component: {fileID: 3826865186268225290}
   - component: {fileID: 8868766063020223032}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: xm1014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 2830511931722085739}
   - component: {fileID: 3560836082222215521}
   - component: {fileID: 6480776217290392513}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: tmp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 3229650590598187508}
   - component: {fileID: 2122702609831656041}
   - component: {fileID: 5913590695650249528}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 5568675984834429305}
   - component: {fileID: 6245944090204291331}
   - component: {fileID: 8448754190516667320}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: m3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 5321632983075111470}
   - component: {fileID: 1011691285727210414}
   - component: {fileID: 5103195328072672368}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AWP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 329117738824989551}
   - component: {fileID: 2456625513535185844}
   - component: {fileID: 1170554053551166620}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: FIVESEVEN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,13 +919,13 @@ GameObject:
   - component: {fileID: 3685994568673069111}
   - component: {fileID: 1704403591480626299}
   - component: {fileID: 73023528893663548}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: FireLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9092931799580534368
 Transform:
   m_ObjectHideFlags: 0
@@ -1123,7 +1123,7 @@ GameObject:
   - component: {fileID: 8995562899086274848}
   - component: {fileID: 3082520814293117258}
   - component: {fileID: 3095265360139879192}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AUG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1231,7 @@ GameObject:
   - component: {fileID: 918039406890029831}
   - component: {fileID: 5985296489040029548}
   - component: {fileID: 1658776883457027560}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: usp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,7 +1339,7 @@ GameObject:
   - component: {fileID: 3470605129038887218}
   - component: {fileID: 2174733658362785697}
   - component: {fileID: 2504924497169552802}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: DEAGLE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1447,7 +1447,7 @@ GameObject:
   - component: {fileID: 4081847636305786452}
   - component: {fileID: 7055885187063056681}
   - component: {fileID: 6807046881515302803}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: BOMB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1555,7 +1555,7 @@ GameObject:
   - component: {fileID: 9034751607282052963}
   - component: {fileID: 3136978454477323204}
   - component: {fileID: 5881018717604890712}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: sg552
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1663,7 +1663,7 @@ GameObject:
   - component: {fileID: 9083961551955832184}
   - component: {fileID: 2657317478587237239}
   - component: {fileID: 5388740976833788097}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: GALIL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1771,7 +1771,7 @@ GameObject:
   - component: {fileID: 1797518656481585717}
   - component: {fileID: 2958887050659936185}
   - component: {fileID: 4806779825218532444}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: sg550
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1879,7 +1879,7 @@ GameObject:
   - component: {fileID: 2939713079747177470}
   - component: {fileID: 6601954311104026055}
   - component: {fileID: 4146498748502875398}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: p90
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1987,7 +1987,7 @@ GameObject:
   - component: {fileID: 7524706653790422346}
   - component: {fileID: 4926943911370122459}
   - component: {fileID: 4033723700936610277}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2094,7 +2094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 271931504423146248}
   - component: {fileID: 1330621055907665405}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Renderer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2109,7 +2109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5646702209066613293}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2180,7 +2180,7 @@ GameObject:
   - component: {fileID: 3352458679037478380}
   - component: {fileID: 6658762527649092070}
   - component: {fileID: 5776528534074228686}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: mp5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2288,7 +2288,7 @@ GameObject:
   - component: {fileID: 1821200264447011228}
   - component: {fileID: 7277911033102980251}
   - component: {fileID: 8098890971210416896}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: FLASHBANG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2395,7 +2395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5738536456959046516}
   - component: {fileID: 4959872535848102646}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: WeaponDataManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2475,7 +2475,7 @@ GameObject:
   - component: {fileID: 2941795455363754002}
   - component: {fileID: 8721984071791939933}
   - component: {fileID: 2884748858679884557}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ELITE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2583,7 +2583,7 @@ GameObject:
   - component: {fileID: 5106318137788704033}
   - component: {fileID: 4147027460445097500}
   - component: {fileID: 4270490312024800834}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: mac10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2691,7 +2691,7 @@ GameObject:
   - component: {fileID: 5678680301883013560}
   - component: {fileID: 3236429100766963477}
   - component: {fileID: 4539594074654795962}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ump45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2812,9 +2812,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7194378706933031331}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.029999882, y: 2.2300007, z: 0}
-  m_LocalScale: {x: 0.7348302, y: 0.7348302, z: 0.73483}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9092931799580534368}
@@ -2831,7 +2831,7 @@ GameObject:
   - component: {fileID: 4464527258110110898}
   - component: {fileID: 5918584218947536021}
   - component: {fileID: 967239464356446220}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: G3SG1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2939,7 +2939,7 @@ GameObject:
   - component: {fileID: 3258020838012379426}
   - component: {fileID: 3945896986507266452}
   - component: {fileID: 4685451236949498367}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: GLOCK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3047,7 +3047,7 @@ GameObject:
   - component: {fileID: 5322228000728088522}
   - component: {fileID: 559668546958558548}
   - component: {fileID: 6472842454577092052}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AK-47
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3155,7 +3155,7 @@ GameObject:
   - component: {fileID: 3338021018038007139}
   - component: {fileID: 4945717940300129123}
   - component: {fileID: 7996933932790888124}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: FAMAS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3263,7 +3263,7 @@ GameObject:
   - component: {fileID: 9138876227225869986}
   - component: {fileID: 4427442658778006834}
   - component: {fileID: 6000267823816782150}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: scout
   m_TagString: Untagged
   m_Icon: {fileID: 0}

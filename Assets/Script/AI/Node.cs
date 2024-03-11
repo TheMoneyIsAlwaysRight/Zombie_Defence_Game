@@ -8,11 +8,16 @@ public class Node
     public Vector3 worldPosition;
     public int gCost;
     public int hCost;
+    public Node parent;
+    public int gridX;
+    public int gridY;
 
-    public Node(bool walkable_,Vector3 worldPosition_)
+    public Node(bool walkable, Vector3 worldPosition,int gridX,int gridY)
     {
-        walkable = walkable_;
-        worldPosition = worldPosition_;
+        this.walkable = walkable;
+        this.worldPosition = worldPosition;
+        this.gridX = gridX;
+        this.gridY = gridY;
     }
     public int fCost
     {

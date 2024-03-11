@@ -65,8 +65,6 @@ public class AI : Human
 
     void Update()
     {
-        Debug.Log($"Ai got {weaponmanager.curweapon}");
-
         this.Hpcheck();
         AIeye();
 
