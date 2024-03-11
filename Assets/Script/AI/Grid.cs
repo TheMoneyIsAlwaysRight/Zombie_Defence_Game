@@ -19,52 +19,44 @@ public class Grid : MonoBehaviour
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter); //(격자 월드 밑변 / 노드의 지름)으로 격자에 노드가 몇개나 들어갈 수 있는지 여부 계산.
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);//(격자 월드 높이 / 노드의 지름)으로 격자에 노드가 몇개나 들어갈 수 있는지 여부 계산.
-    }
-
-    private void Update()
-    {
         CreateGrid();
     }
+
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY]; //start에서 계산한 크기만큼 노드 2차원 배열 생성
         worldBottomLeft = transform.position - Vector3.right * (gridWorldSize.x / 2) - Vector3.up * (gridWorldSize.y / 2); //격자에서 왼쪽 아래 꼭지점
+        Debug.Log($"worldBottomLeft = {worldBottomLeft}");
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-                //격자의 정중앙 위치벡터 worldPoint라고 지정하고 여기에 노드를 심는 과정. 
-                if (Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask) == false)
-                {
-                    grid[x, y] = new Node(true, worldPoint, x, y);
-                }
-                else
-                {
-                    grid[x, y] = new Node(false, worldPoint,x,y);
-                }
+                bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
+                grid[x,y] =new Node(walkable, worldPoint, x, y);
+                Debug.Log($"{grid[x, y].worldPosition.x},{grid[x, y].worldPosition.y}에 {walkable}한 노드 [{x},{y}]생성됨.");
             }
         }
     }
     public Node NodeFromWorldPoint(Vector3 worldPosition) //현재 캐릭터가 서 있는 노드가 어딘지 반환.
     {
-        Debug.Log($"worldPosition = {worldPosition.x},{worldPosition.y}");
-        float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
-        float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
-        
+
+        float percentX = (gridWorldSize.x / 2 + worldPosition.x) / gridWorldSize.x;
+        float percentY = (gridWorldSize.y / 2 + worldPosition.y) / gridWorldSize.y;
+
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
-        Debug.Log($"percentX,Y = {percentX},{percentY}");
+
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
-        Debug.Log($"{x},{y}");
+        Debug.Log($"노드로는 {x},{y}");
         return grid[x, y];
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y,0));
 
         // 와이어프레임 큐브그리기(큐브의 중앙 위치에 관한 벡터, 큐브의 사이즈)
         if (grid != null)
