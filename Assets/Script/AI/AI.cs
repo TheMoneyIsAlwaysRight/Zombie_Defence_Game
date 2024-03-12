@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEditor;
+using Unity.VisualScripting;
+using static UnityEditor.PlayerSettings;
+using System.IO;
 
 public class AI : Human
 {
@@ -11,11 +14,30 @@ public class AI : Human
     public static Vector2 mouse;
     [SerializeField] WeaponManager weaponmanager;
     [SerializeField] FIRETRACKING firetrack; //총알의 궤적
-
     [SerializeField] Transform target;
-
+    [SerializeField] GameObject astar;
     float angleRange = 90f; // 각도범위
     float distance = 15f; // 부채꼴(시야)의 반지름 크기.
+
+    void Update()
+    {
+        AiMove();
+        //AIeye();
+
+    }
+    void AiMove() //Ai의 움직임
+    {
+        AIPath();
+    }
+
+
+    void AIPath()
+    {
+        List<Node> path = astar.GetComponent<PathFinder>().npcpath;
+        Node next = path[1];
+        Vector2 dir = (next.worldPosition - transform.position).normalized;
+        transform.Translate(dir * movespeed * Time.deltaTime);
+    }
 
     void AIeye() // Ai의 시야
     {
@@ -63,17 +85,6 @@ public class AI : Human
         Handles.DrawSolidArc(transform.position, transform.forward, transform.up, -angleRange / 2, distance);
     }
 
-    void Update()
-    {
-        this.Hpcheck();
-        AIeye();
-
-    }
-    void AiMove() //Ai의 움직임
-    {
-        this.Hpcheck();
-
-    }
 
 
     public void Fire(Weapon curweapon)
@@ -109,6 +120,4 @@ public class AI : Human
         }
 
     }
-
-
 }

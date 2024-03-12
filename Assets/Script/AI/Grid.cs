@@ -11,6 +11,7 @@ public class Grid : MonoBehaviour
     float nodeDiameter; // 노드의 지름(격자 한칸의 변의 길이를 설정해줄 크기)
     int gridSizeX, gridSizeY; //격자의 밑변과 높이 크기
     public List<Node> path;
+    public GameObject tracker;
     Vector3 worldBottomLeft;
 
 
@@ -26,7 +27,7 @@ public class Grid : MonoBehaviour
     {
         grid = new Node[gridSizeX, gridSizeY]; //start에서 계산한 크기만큼 노드 2차원 배열 생성
         worldBottomLeft = transform.position - Vector3.right * (gridWorldSize.x / 2) - Vector3.up * (gridWorldSize.y / 2); //격자에서 왼쪽 아래 꼭지점
-        Debug.Log($"worldBottomLeft = {worldBottomLeft}");
+        // Debug.Log($"worldBottomLeft = {worldBottomLeft}");
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
@@ -34,7 +35,7 @@ public class Grid : MonoBehaviour
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
                 grid[x,y] =new Node(walkable, worldPoint, x, y);
-                Debug.Log($"{grid[x, y].worldPosition.x},{grid[x, y].worldPosition.y}에 {walkable}한 노드 [{x},{y}]생성됨.");
+               // Debug.Log($"{grid[x, y].worldPosition.x},{grid[x, y].worldPosition.y}에 {walkable}한 노드 [{x},{y}]생성됨.");
             }
         }
     }
@@ -44,13 +45,13 @@ public class Grid : MonoBehaviour
         float percentX = (worldPosition.x - worldBottomLeft.x) / gridWorldSize.x;
         float percentY = (worldPosition.y - worldBottomLeft.y) / gridWorldSize.y;
 
-        Debug.Log($"그리드 왼쪽 최하위 기준으로 약 {percentX*100}%,{percentY*100}%");
+        //Debug.Log($"그리드 왼쪽 최하위 기준으로 약 {percentX*100}%,{percentY*100}%");
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
-        Debug.Log($"노드로는 {x},{y}");
+        //Debug.Log($"이 캐릭터의 위치는 그리드로 표현된 노드 상으로는 {x},{y}");
         return grid[x, y];
     }
 
@@ -71,6 +72,10 @@ public class Grid : MonoBehaviour
                     {
                         Gizmos.color = Color.black;
                     }
+                }
+                else
+                {
+                    // Debug.Log("경로가 없습니다.");
                 }
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
 
@@ -96,6 +101,8 @@ public class Grid : MonoBehaviour
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
                     neighbors.Add(grid[checkX, checkY]);
+                    //Debug.Log($"이 캐릭터는 노드 상 {node.gridX},{node.gridY}에 위치하며,");
+                    //Debug.Log($"이 캐릭터를 기준으로 그리드 상 좌표에 ({checkX}, {checkY})에 노드가 만들어졌습니다.");
                 }
             }
         }
