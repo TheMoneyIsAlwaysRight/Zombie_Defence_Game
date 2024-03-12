@@ -41,9 +41,10 @@ public class Grid : MonoBehaviour
     public Node NodeFromWorldPoint(Vector3 worldPosition) //현재 캐릭터가 서 있는 노드가 어딘지 반환.
     {
 
-        float percentX = (gridWorldSize.x / 2 + worldPosition.x) / gridWorldSize.x;
-        float percentY = (gridWorldSize.y / 2 + worldPosition.y) / gridWorldSize.y;
+        float percentX = (worldPosition.x - worldBottomLeft.x) / gridWorldSize.x;
+        float percentY = (worldPosition.y - worldBottomLeft.y) / gridWorldSize.y;
 
+        Debug.Log($"그리드 왼쪽 최하위 기준으로 약 {percentX*100}%,{percentY*100}%");
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
