@@ -34,12 +34,15 @@ public class AI : Human
 
     void AIPath()
     {
-        if (astar.GetComponent<PathFinder>().npcpath != null)
+        if (astar.GetComponent<PathFinding>().npcpath != null)
         {
-            List<Node> path = astar.GetComponent<PathFinder>().npcpath;
-            Node next = path[1];
-            Vector2 dir = (next.worldPosition - transform.position).normalized;
-            transform.Translate(dir * movespeed * Time.deltaTime);
+            if (astar.GetComponent<PathFinding>().npcpath.Count > 0)
+            {
+                List<Node> path = astar.GetComponent<PathFinding>().npcpath;
+                Node next = path[0];
+                Vector2 dir = (next.worldPosition - transform.position).normalized;
+                transform.Translate(dir * movespeed * Time.deltaTime);
+            }
         }
     }
 

@@ -4,7 +4,7 @@ using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PathFinder : MonoBehaviour
+public class PathFinding : MonoBehaviour
 {
     Grid grid;
     public Transform seeker, target;
@@ -14,11 +14,7 @@ public class PathFinder : MonoBehaviour
     {
         grid = GetComponent<Grid>();
     }
-    private void Update()
-    {
-        FindPath(seeker.position, target.position);
-    }
-    void FindPath(Vector3 startPos, Vector3 targetPos)
+    public void FindPath(Vector3 startPos, Vector3 targetPos)
     {
         Node startNode = grid.NodeFromWorldPoint(startPos); //시작 노드 
         //Debug.Log($"적의 위치 노드:({startNode.gridX},{startNode.gridY})");
