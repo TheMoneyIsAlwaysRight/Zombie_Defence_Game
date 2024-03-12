@@ -9,6 +9,7 @@ public class PathFinder : MonoBehaviour
     Grid grid;
     public Transform seeker, target;
     public List<Node> npcpath;
+
     private void Awake()
     {
         grid = GetComponent<Grid>();
@@ -113,7 +114,7 @@ public class PathFinder : MonoBehaviour
 
         path.Reverse();
         npcpath = path;
-        Debug.Log(npcpath.Count);
+
         grid.path = path;
 
 

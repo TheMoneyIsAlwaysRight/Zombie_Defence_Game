@@ -60,7 +60,6 @@ public class Grid : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y,0));
 
-        // 와이어프레임 큐브그리기(큐브의 중앙 위치에 관한 벡터, 큐브의 사이즈)
         if (grid != null)
         {
             foreach (Node n in grid)
@@ -75,7 +74,6 @@ public class Grid : MonoBehaviour
                 }
                 else
                 {
-                    // Debug.Log("경로가 없습니다.");
                 }
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
 
@@ -101,8 +99,6 @@ public class Grid : MonoBehaviour
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
                     neighbors.Add(grid[checkX, checkY]);
-                    //Debug.Log($"이 캐릭터는 노드 상 {node.gridX},{node.gridY}에 위치하며,");
-                    //Debug.Log($"이 캐릭터를 기준으로 그리드 상 좌표에 ({checkX}, {checkY})에 노드가 만들어졌습니다.");
                 }
             }
         }

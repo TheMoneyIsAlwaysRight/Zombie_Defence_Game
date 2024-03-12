@@ -22,7 +22,8 @@ public class AI : Human
     void Update()
     {
         AiMove();
-        //AIeye();
+        Hpcheck();
+        AIeye();
 
     }
     void AiMove() //Ai의 움직임
@@ -33,10 +34,13 @@ public class AI : Human
 
     void AIPath()
     {
-        List<Node> path = astar.GetComponent<PathFinder>().npcpath;
-        Node next = path[1];
-        Vector2 dir = (next.worldPosition - transform.position).normalized;
-        transform.Translate(dir * movespeed * Time.deltaTime);
+        if (astar.GetComponent<PathFinder>().npcpath != null)
+        {
+            List<Node> path = astar.GetComponent<PathFinder>().npcpath;
+            Node next = path[1];
+            Vector2 dir = (next.worldPosition - transform.position).normalized;
+            transform.Translate(dir * movespeed * Time.deltaTime);
+        }
     }
 
     void AIeye() // Ai의 시야
@@ -71,7 +75,7 @@ public class AI : Human
                 transform.up = targetVector.normalized;
                 //yield return new WaitForSeconds(3);
                 Fire(weaponmanager.curweapon);
-                Debug.Log("적이 공격중");
+
             }
         }
     }

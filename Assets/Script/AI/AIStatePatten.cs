@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIStatePatten : MonoBehaviour
 {
+    [SerializeField] Transform targetPlace;
     enum State //Ai의 상태 패턴
     {
         shopping,
@@ -12,7 +13,6 @@ public class AIStatePatten : MonoBehaviour
         attack,
         die,
     }
-
     State curstate;
 
     private void Update()
@@ -28,7 +28,7 @@ public class AIStatePatten : MonoBehaviour
     }
     void Mission()
     {
-
+        
     }
     void Trace()
     {

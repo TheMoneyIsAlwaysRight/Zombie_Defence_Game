@@ -54,7 +54,6 @@ public class Human : MonoBehaviour, IDamagable
 
     protected void Die()
     {
-        Debug.Log($"{gameObject.name} is Dead");
         Destroy(gameObject);
     }
 
