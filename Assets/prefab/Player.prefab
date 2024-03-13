@@ -553,6 +553,7 @@ MonoBehaviour:
   - {fileID: 0}
   droppoint: {fileID: 7828865897122110717}
   curweapon: {fileID: 0}
+  BuyMenu: {fileID: 0}
 --- !u!114 &7022898012436849316
 MonoBehaviour:
   m_ObjectHideFlags: 0
