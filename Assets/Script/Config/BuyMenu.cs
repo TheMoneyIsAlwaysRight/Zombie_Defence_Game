@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class BuyMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Stack<GameObject> Menu;
 
-    // Update is called once per frame
-    void Update()
+
+
+    private void OnEnable()
     {
-        
+        Menu = new Stack<GameObject>();
     }
 }

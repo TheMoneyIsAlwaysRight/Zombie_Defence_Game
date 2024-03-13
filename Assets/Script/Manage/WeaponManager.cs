@@ -5,18 +5,19 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
 
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] Player user;
     [SerializeField] Weapon[] HAND = new Weapon[5]; //현재 가진 무기 목록
-    [SerializeField] Dictionary<int,Weapon> WeaponInfo = new Dictionary<int,Weapon>(); // 모든 무기는 무기번호로 지정됨.
+    [SerializeField] Dictionary<int, Weapon> WeaponInfo = new Dictionary<int, Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
     [SerializeField] public Weapon curweapon; //현재 무기
     [SerializeField] GameObject BuyMenu;
 
     bool weaponcooltime;
-   
+
 
     Coroutine firecoroutine;
     Coroutine reloadcoroutine;
@@ -32,7 +33,7 @@ public class WeaponManager : MonoBehaviour
         HAND[2] = WeaponInfo[50]; // weapon number 50 -> knife
         Weapon[] setweapon = gameObject.GetComponentsInChildren<Weapon>();
 
-        foreach(Weapon a in setweapon) //모든 무기 비활성화
+        foreach (Weapon a in setweapon) //모든 무기 비활성화
         {
             a.gameObject.SetActive(false);
         }
@@ -79,14 +80,14 @@ public class WeaponManager : MonoBehaviour
 
         if (value.isPressed)
         {
-            if(curweapon.GetComponent<Bomb>())
+            if (curweapon.GetComponent<Bomb>())
             {
 
             }
 
-            if(curweapon != null)
+            if (curweapon != null)
             {
-                firecoroutine = StartCoroutine(FireCoroutine(curweapon));               
+                firecoroutine = StartCoroutine(FireCoroutine(curweapon));
             }
         }
         else
@@ -165,32 +166,13 @@ public class WeaponManager : MonoBehaviour
             curweapon = HAND[2];
             curweapon.gameObject.SetActive(true);
         }
-        else
-        {
-            Debug.Log("이 무기는 버릴 수 없다.");
-        }
 
     }
-    void OnRifle(InputValue button)
-    {
-        ChangeWeapon(HAND[0]);
-    }
-    void OnPistol(InputValue button)
-    {
-        ChangeWeapon(HAND[1]);
-    }
-    void OnMelee(InputValue button)
-    {
-        ChangeWeapon(HAND[2]);
-    }
-    void OnGrenade(InputValue button)
-    {
-        ChangeWeapon(HAND[3]);
-    }
-    void OnBomb(InputValue button)
-    {
-        ChangeWeapon(HAND[4]);
-    }
+    void OnRifle(InputValue button){if (HAND[0] != null){ ChangeWeapon(HAND[0]); }}
+    void OnPistol(InputValue button) { if (HAND[1] != null) { ChangeWeapon(HAND[1]); } }
+    void OnMelee(InputValue button) { if (HAND[2] != null) { ChangeWeapon(HAND[2]); } }
+    void OnGrenade(InputValue button) { if (HAND[3] != null) { ChangeWeapon(HAND[3]); } }
+    void OnBomb(InputValue button) { if (HAND[4] != null) { ChangeWeapon(HAND[4]); } }
 
     void OnBuyMenu(InputValue button)
     {
@@ -205,17 +187,10 @@ public class WeaponManager : MonoBehaviour
     }
     void ChangeWeapon(Weapon swapweapon) //현재 가지고 있는 무기 중 다른 무기로 들기.
     {
-        if (HAND[swapweapon.weaponstyle] != null)
-        {
             Weapon prevweapon = curweapon;
             this.curweapon = swapweapon;
             prevweapon.gameObject.SetActive(false);
             curweapon.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("그 번호의 무기가 현재 가지고 있지 않습니다.");
-        }
     }
     public void BuyWeapon(Weapon purchaseweapon)
     {
