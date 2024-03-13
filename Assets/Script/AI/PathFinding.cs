@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,7 +8,6 @@ using UnityEngine;
 public class PathFinding : MonoBehaviour
 {
     Grid grid;
-    public Transform seeker, target;
     public List<Node> npcpath;
 
     private void Awake()
@@ -16,6 +16,12 @@ public class PathFinding : MonoBehaviour
     }
     public void FindPath(Vector3 startPos, Vector3 targetPos)
     {
+        if(npcpath != null)
+        {
+            npcpath = null;
+            Debug.Log("전에 있었던 경로를 삭제합니다.");
+        }
+
         Node startNode = grid.NodeFromWorldPoint(startPos); //시작 노드 
         //Debug.Log($"적의 위치 노드:({startNode.gridX},{startNode.gridY})");
 
@@ -47,7 +53,7 @@ public class PathFinding : MonoBehaviour
             if (node == targetNode)
             {
                 RetracePath(startNode, targetNode);
-                return; //도착지에 도착한 것으로 판정 후 알고리즘 종료
+                return; //경로를 다 찾은 것으로 판정.
 
             }
 
@@ -107,12 +113,9 @@ public class PathFinding : MonoBehaviour
             path.Add(currentNode);
             currentNode = currentNode.parent;
         }
-
         path.Reverse();
-        npcpath = path;
 
         grid.path = path;
-
-
+        npcpath = path;
     }
 }

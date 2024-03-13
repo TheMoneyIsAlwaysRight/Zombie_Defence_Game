@@ -41,12 +41,10 @@ public class WeaponManager : MonoBehaviour
         curweapon.gameObject.SetActive(true); //칼 무기만 활성화.
 
     }
-
     void Start()
     {
         FirstSetting();
     }
-
     public IEnumerator FireCoroutine(Weapon curweapon)
     {
         while (true)
@@ -70,12 +68,16 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(curweapon.reloadtime);
         //animator.SetBool("Reload", false);
     }
-
     void OnFire(InputValue value)
     {
 
         if (value.isPressed)
         {
+            if(curweapon.GetComponent<Bomb>())
+            {
+
+            }
+
             if(curweapon != null)
             {
                 firecoroutine = StartCoroutine(FireCoroutine(curweapon));               
@@ -87,7 +89,6 @@ public class WeaponManager : MonoBehaviour
         }
 
     }
-
     void OnReload()
     {
         if (user != null)
@@ -98,9 +99,6 @@ public class WeaponManager : MonoBehaviour
             { reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon)); }
         }
     }
-
-
-
     public void PickUpWeapon(GameObject pickupweapon)
     {
         int number = pickupweapon.GetComponent<item>().weaponnumber;
@@ -220,6 +218,10 @@ public class WeaponManager : MonoBehaviour
             curweapon = HAND[4];
             curweapon.gameObject.SetActive(true);
         }
+
+    }
+    void BuyWeapon()
+    {
 
     }
 }
