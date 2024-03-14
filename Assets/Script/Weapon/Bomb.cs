@@ -1,33 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using TMPro.EditorUtilities;
+using UnityEditor;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class BOMB : MonoBehaviour
 {
-    [SerializeField] GameObject BombHud;
-    [SerializeField] TMP_Text timer;
-    bool IsDefused;
-    private void OnEnable()
-    {
-        Debug.Log("Bomb has been Planted!!");
-        BombHud.SetActive(true);
-        timer = BombHud.GetComponent<TMP_Text>();
-    }
-    IEnumerator Timer()
-    {
-        yield return new WaitForSeconds(40f);
-        if (IsDefused)
-        {
-            GameManager.gamemanager.Game.CounterWIN();
-        }
-        else if(!IsDefused)
-        {
-            GameManager.gamemanager.Game.TerrorWin();
-        }
-        
-    }
+    float PlantingTime = 5f;
+    [SerializeField] GameObject PlantedBomb;
+    [SerializeField] GameObject BombHUD;
+    static bool IsPlanted;
+    Coroutine bombplant;
 
+   IEnumerator Planting()
+   {
+        Debug.Log($"ÆøÅº ¼³Ä¡Áß : {PlantingTime}");
+        PlantingTime -= Time.deltaTime;
+        yield return new WaitForSeconds(PlantingTime);
+   }
 
-}
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            if (!IsPlanted && PlantingTime <= 0)
+            {
+                StopCoroutine(bombplant);
+                Instantiate(PlantedBomb, transform.position, transform.rotation);
+                gameObject.SetActive(false);
+
+                transform.parent.GetComponent<WeaponManager>().BombPlanted();
+
+                BombHUD.SetActive(true);
+                IsPlanted = true;
+            }
+            else
+            {
+                bombplant = StartCoroutine(Planting());
+            }
+
+        }
+    }
+    }

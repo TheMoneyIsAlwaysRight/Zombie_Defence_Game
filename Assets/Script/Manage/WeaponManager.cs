@@ -10,10 +10,11 @@ using UnityEngine.XR;
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] Player user;
-    [SerializeField] Weapon[] HAND = new Weapon[5]; //현재 가진 무기 목록
+    [SerializeField] public Weapon[] HAND = new Weapon[5]; //현재 가진 무기 목록
     [SerializeField] Dictionary<int, Weapon> WeaponInfo = new Dictionary<int, Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
     [SerializeField] public Weapon curweapon; //현재 무기
+    [SerializeField] public Weapon prevweapon;
     [SerializeField] GameObject BuyMenu;
 
     bool weaponcooltime;
@@ -29,29 +30,23 @@ public class WeaponManager : MonoBehaviour
         {
             WeaponInfo.Add(Weapons[x].GetComponent<Weapon>().weaponnumber, Weapons[x]);
         }
-
-        HAND[2] = WeaponInfo[50]; // weapon number 50 -> knife
-        Weapon[] setweapon = gameObject.GetComponentsInChildren<Weapon>();
-
-        foreach (Weapon a in setweapon) //모든 무기 비활성화
+        foreach (Weapon a in gameObject.GetComponentsInChildren<Weapon>()) //모든 무기 비활성화
         {
             a.gameObject.SetActive(false);
         }
-
+        HAND[2] = WeaponInfo[50]; // weapon number 50 -> knife
         curweapon = HAND[2];
 
-        curweapon.gameObject.SetActive(true); //칼 무기만 활성화.
 
     }
     void Start()
     {
         FirstSetting();
     }
-
-
-
-
-
+    private void Update()
+    {
+        curweapon.gameObject.SetActive(true);
+    }
     public IEnumerator FireCoroutine(Weapon curweapon)
     {
         while (true)
@@ -69,22 +64,11 @@ public class WeaponManager : MonoBehaviour
 
         }
     }
-    public IEnumerator ReloadCoroutine(Weapon curweapon)
-    {
-        //animator.SetBool("Reload", true);
-        yield return new WaitForSeconds(curweapon.reloadtime);
-        //animator.SetBool("Reload", false);
-    }
     void OnFire(InputValue value)
     {
 
         if (value.isPressed)
         {
-            if (curweapon.GetComponent<Bomb>())
-            {
-
-            }
-
             if (curweapon != null)
             {
                 firecoroutine = StartCoroutine(FireCoroutine(curweapon));
@@ -96,16 +80,15 @@ public class WeaponManager : MonoBehaviour
         }
 
     }
+
     void OnReload()
     {
         if (user != null)
         {
-
-            bool IsReload = user.Reload(curweapon);
-            if (IsReload) //재장전에 성공하면
-            { reloadcoroutine = StartCoroutine(ReloadCoroutine(curweapon)); }
+          user.Reload(curweapon);
         }
     }
+
     public void PickUpWeapon(GameObject pickupweapon)
     {
         int number = pickupweapon.GetComponent<item>().weaponnumber;
@@ -148,14 +131,15 @@ public class WeaponManager : MonoBehaviour
     }
     void DropWeapon()
     {
-        if (curweapon != HAND[2])
+        if(curweapon == HAND[2])
         {
-            curweapon.gameObject.SetActive(false);
-
+            Debug.Log("칼 무기는 버릴 수 없습니다.");
+            return;
+        }
+        if (curweapon != prevweapon)
+        {
             GameObject dropitem = curweapon.GetComponent<Weapon>().dropPrefab;
-
             Instantiate(dropitem, droppoint.transform.position, transform.rotation);
-
             for (int x = 0; x < HAND.Length; x++) //무기를 버린 뒤 현재 무기 목록에서 지움.
             {
                 if (curweapon == HAND[x])
@@ -163,8 +147,7 @@ public class WeaponManager : MonoBehaviour
                     HAND[x] = null;
                 }
             }
-            curweapon = HAND[2];
-            curweapon.gameObject.SetActive(true);
+            ChangeWeapon(HAND[2]);
         }
 
     }
@@ -173,7 +156,6 @@ public class WeaponManager : MonoBehaviour
     void OnMelee(InputValue button) { if (HAND[2] != null) { ChangeWeapon(HAND[2]); } }
     void OnGrenade(InputValue button) { if (HAND[3] != null) { ChangeWeapon(HAND[3]); } }
     void OnBomb(InputValue button) { if (HAND[4] != null) { ChangeWeapon(HAND[4]); } }
-
     void OnBuyMenu(InputValue button)
     {
         if(BuyMenu.activeSelf == true)
@@ -185,18 +167,71 @@ public class WeaponManager : MonoBehaviour
             BuyMenu.SetActive(true);
         }
     }
-    void ChangeWeapon(Weapon swapweapon) //현재 가지고 있는 무기 중 다른 무기로 들기.
+
+
+
+    void ChangeWeapon(Weapon swapweapon) //다른 무기로 들기.
     {
-            Weapon prevweapon = curweapon;
+
+        if(curweapon == swapweapon) // 기존 무기와 동일한 무기를 들려할 경우
+        {
+            prevweapon = null;
+            Debug.Log("같은 무기로 바꾸기");
+            return;
+        }
+
+        if (HAND[swapweapon.weaponstyle] == swapweapon) // 교체하려는 그 무기를 가지고 있었을 때만   
+        {   prevweapon = curweapon;
+            prevweapon.gameObject.SetActive(false);
+            curweapon = swapweapon;
+        }
+        else if(HAND[swapweapon.weaponstyle] != swapweapon)
+        {
+            prevweapon = HAND[2]; //전 무기를 칼로 고정.
+            Debug.Log("2");
             this.curweapon = swapweapon;
             prevweapon.gameObject.SetActive(false);
             curweapon.gameObject.SetActive(true);
+        }
+
+
     }
+
     public void BuyWeapon(Weapon purchaseweapon)
     {
-        ChangeWeapon(HAND[purchaseweapon.weaponstyle]);
-        DropWeapon();
-        HAND[purchaseweapon.weaponstyle] = purchaseweapon;
-        curweapon = purchaseweapon;
+        if (HAND[purchaseweapon.weaponstyle] != null) //그 스타일의 무기를 이미 갖고 있었다면
+        {
+            if (HAND[purchaseweapon.weaponstyle] != purchaseweapon) //기존 무기와 다른 무기를 사려한다면
+            {
+                DropWeapon(); //그 무기를 버리고, 현재 목록에서 삭제. 칼무기로 바뀜.
+                HAND[purchaseweapon.weaponstyle] = purchaseweapon;
+                ChangeWeapon(HAND[purchaseweapon.weaponstyle]);
+            }
+            else if(HAND[purchaseweapon.weaponstyle] == purchaseweapon)
+            {
+                Debug.Log("같은 무기를 사려했습니다.");
+                return;
+            }
+            
+        }
+        else //그 번호에 무기가 없을 경우.
+        {
+            HAND[purchaseweapon.weaponstyle] = purchaseweapon;
+            ChangeWeapon(purchaseweapon);
+        }
+    }
+    public void DefuseBomb()
+    {
+        if(transform.parent.tag == "T")
+        {
+            Debug.Log("테러리스트는 폭탄을 해체할 수 없습니다.");
+            return;
+        }
+    }
+    public void BombPlanted()
+    {
+        ChangeWeapon(HAND[2]);
+        prevweapon = null;
+        HAND[4] = null;
     }
 }

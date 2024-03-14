@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
      [SerializeField] public int magazine;
      [SerializeField] public int magazineCapacity;
      [SerializeField] public float firecooltime;
-     [SerializeField] public int reloadtime;
+     [SerializeField] public float reloadtime;
      [SerializeField] public GameObject dropPrefab;
      [SerializeField] public GameObject firepoint;
 

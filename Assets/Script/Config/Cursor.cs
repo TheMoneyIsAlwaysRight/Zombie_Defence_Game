@@ -14,11 +14,18 @@ public class Cursor : MonoBehaviour
     public RectTransform transform_cursor;
     public RectTransform transform_icon;
    
+
     private void Start()
     {
-        UnityEngine.Cursor.visible = false;
-
         UnityEngine.Cursor.lockState = CursorLockMode.Confined;
+    }
+    private void OnEnable()
+    {
+        UnityEngine.Cursor.visible = false;
+    }
+    private void OnDisable()
+    {
+        UnityEngine.Cursor.visible = true;
     }
 
     private void Update()

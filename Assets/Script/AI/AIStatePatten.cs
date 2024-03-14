@@ -42,15 +42,14 @@ public class AIStatePatten : MonoBehaviour
                 Shopping();
                 break;
             case State.mission:
-                Debug.Log("적의 상태: 미션 ");
+
                 Mission();
                 break;
             case State.alert:
-                Debug.Log("적의 상태: 경계 ");
+
                 Alert();
                 break;
             case State.battle:
-                Debug.Log("적의 상태: BATTLE");
                 Battle();
                 break;
             case State.die:
@@ -162,7 +161,6 @@ public class AIStatePatten : MonoBehaviour
     }
     IEnumerator AlertTime()
     {
-        Debug.Log("적이 경계중");
         this.alertTime -= Time.deltaTime;
         //Debug.Log($"남은 시간{this.alertTime}");
         yield return new WaitForSeconds(0.1f);

@@ -12,22 +12,23 @@ public class GameManager : MonoBehaviour
 
     static List<GameObject> tcount;
     static List<GameObject> ctcount;
-    [SerializeField] GameObject CTWIN;
-    [SerializeField] GameObject TWIN;
-    public static GameManager gamemanager;
+    [SerializeField] public GameObject CTWIN;
+    [SerializeField] public GameObject TWIN;
+    public static GameManager gameManager;
 
 
-    public GameManager Game { get { return gamemanager; } }
+    public static GameManager Game { get { return gameManager; } }
 
     public void Awake()
-    {
-        if(gamemanager != null)
+    { 
+
+        if (gameManager != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            gamemanager = new GameManager();
+            gameManager = this;
         }
     }
 
@@ -39,13 +40,11 @@ public class GameManager : MonoBehaviour
     public void TerrorWin()
     {
         TWIN.SetActive(true);
-
         GamePause();
     }
     public void CounterWIN()
     {
         CTWIN.SetActive(true);
-
         GamePause();
     }
     void CountSurvivor()
@@ -54,10 +53,6 @@ public class GameManager : MonoBehaviour
         CTCount = GameObject.FindGameObjectsWithTag("CT");
         tcount = TCount.ToList<GameObject>();
         ctcount = CTCount.ToList<GameObject>();
-
-        //Debug.Log($"Terrist is {tcount.Count}");
-        //Debug.Log($"Counter Terrist is {ctcount.Count}");
-
         if(tcount.Count <= 0)
         {
             CounterWIN();
