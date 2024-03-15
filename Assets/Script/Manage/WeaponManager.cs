@@ -9,9 +9,9 @@ using UnityEngine.XR;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] Player user;
+    [SerializeField] Human user;
     [SerializeField] public Weapon[] HAND = new Weapon[5]; //현재 가진 무기 목록
-    [SerializeField] Dictionary<int, Weapon> WeaponInfo = new Dictionary<int, Weapon>(); // 모든 무기는 무기번호로 지정됨.
+    [SerializeField] public Dictionary<int, Weapon> WeaponInfo = new Dictionary<int, Weapon>(); // 모든 무기는 무기번호로 지정됨.
     [SerializeField] GameObject droppoint;
     [SerializeField] public Weapon curweapon; //현재 무기
     [SerializeField] public Weapon prevweapon;
@@ -47,23 +47,6 @@ public class WeaponManager : MonoBehaviour
     {
         curweapon.gameObject.SetActive(true);
     }
-    public IEnumerator FireCoroutine(Weapon curweapon)
-    {
-        while (true)
-        {
-            if (user != null)
-            {
-                user.Fire(curweapon);
-            }
-            else
-            {
-                Debug.Log($"{gameObject.transform.parent.gameObject.name}가 웨폰컨테이너를 사용할 수 없습니다.");
-            }
-
-            yield return new WaitForSeconds(curweapon.firecooltime);
-
-        }
-    }
     void OnFire(InputValue value)
     {
 
@@ -71,12 +54,8 @@ public class WeaponManager : MonoBehaviour
         {
             if (curweapon != null)
             {
-                firecoroutine = StartCoroutine(FireCoroutine(curweapon));
+                user.Fire(curweapon);
             }
-        }
-        else
-        {
-            StopCoroutine(firecoroutine);
         }
 
     }
@@ -170,7 +149,7 @@ public class WeaponManager : MonoBehaviour
 
 
 
-    void ChangeWeapon(Weapon swapweapon) //다른 무기로 들기.
+    public void ChangeWeapon(Weapon swapweapon) //다른 무기로 들기.
     {
 
         if(curweapon == swapweapon) // 기존 무기와 동일한 무기를 들려할 경우

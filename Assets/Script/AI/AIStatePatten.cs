@@ -11,10 +11,17 @@ public class AIStatePatten : MonoBehaviour
     [SerializeField] PathFinding pathfinder;
     [SerializeField] GameObject Enemy;
     List<Node> MissionTrack;
+    float AimToEnemyTime = 1.5f;
     int nextNode;
     float alertTime = 3f;
+    Coroutine AimandFire;
     
-
+    IEnumerator AimToEnemy()
+    {
+        AimToEnemyTime -= Time.deltaTime;
+        Debug.Log($"{AimToEnemyTime}");
+        yield return new WaitForSeconds(1f);
+    }
     float angleRange = 90f; // 각도범위
     float distance = 15f; // 부채꼴(시야)의 반지름 크기.
     enum State //Ai의 상태 패턴
@@ -36,6 +43,7 @@ public class AIStatePatten : MonoBehaviour
     }
     private void Update()
     {
+        AIWeaponPatten();
         switch (curstate)
         {
             case State.shopping:
@@ -77,10 +85,19 @@ public class AIStatePatten : MonoBehaviour
 
         Vector2 targetVector = (Enemy.transform.position - gameObject.transform.position);
         transform.up = (targetVector).normalized;
-
-        //Al.fire();
-        if(targetVector.sqrMagnitude>distance*distance)
+        if (targetVector.sqrMagnitude<distance*distance)
         {
+            AimandFire = StartCoroutine(AimToEnemy());
+            if (AimToEnemyTime <=0)
+            {
+                StopCoroutine(AimandFire);
+                gameObject.GetComponent<AI>().Fire(gameObject.GetComponent<AI>().weaponmanager.curweapon);
+                if (gameObject.GetComponent<AI>().weaponmanager.curweapon.magazine <= 0)
+                {
+                    Debug.Log("적이 재장전 중...");
+                    gameObject.GetComponent<AI>().Reload(gameObject.GetComponent<AI>().weaponmanager.curweapon);
+                }
+            }
             ChangeState(State.alert);
 
         }
@@ -164,6 +181,19 @@ public class AIStatePatten : MonoBehaviour
         this.alertTime -= Time.deltaTime;
         //Debug.Log($"남은 시간{this.alertTime}");
         yield return new WaitForSeconds(0.1f);
+    }
+    void AIWeaponPatten() //적이 무기를 쓰는 형태
+    {
+        if (gameObject.GetComponent<AI>().weaponmanager.HAND[0] == null)
+        {
+            gameObject.GetComponent<AI>().weaponmanager.BuyWeapon(gameObject.GetComponent<AI>().weaponmanager.WeaponInfo[30]);
+            Debug.Log("적이 Ak-47을 구입했습니다.");
+            return;
+        }
+        if (gameObject.GetComponent<AI>().weaponmanager.curweapon != gameObject.GetComponent<AI>().weaponmanager.HAND[0])
+        {
+            gameObject.GetComponent<AI>().weaponmanager.ChangeWeapon(gameObject.GetComponent<AI>().weaponmanager.HAND[0]);
+        }
     }
 
     void AIPath()
