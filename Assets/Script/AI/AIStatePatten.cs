@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -15,11 +16,13 @@ public class AIStatePatten : MonoBehaviour
     int nextNode;
     float alertTime = 3f;
     Coroutine AimandFire;
+    [SerializeField] GameObject FindEnemyNodeListParent; //적군 정찰 노드 리스트
+
+    List<Transform> NodeList; 
     
     IEnumerator AimToEnemy()
     {
         AimToEnemyTime -= Time.deltaTime;
-        Debug.Log($"{AimToEnemyTime}");
         yield return new WaitForSeconds(1f);
     }
     float angleRange = 90f; // 각도범위
@@ -40,6 +43,8 @@ public class AIStatePatten : MonoBehaviour
         //curstate = State.shopping;
         curstate = State.mission;
         nextNode = 0;
+        NodeList = FindEnemyNodeListParent.GetComponentsInChildren<Transform>().ToList<Transform>();
+
     }
     private void Update()
     {
@@ -50,11 +55,9 @@ public class AIStatePatten : MonoBehaviour
                 Shopping();
                 break;
             case State.mission:
-
                 Mission();
                 break;
             case State.alert:
-
                 Alert();
                 break;
             case State.battle:
@@ -77,10 +80,6 @@ public class AIStatePatten : MonoBehaviour
     }
     void Battle() //교전 상태.
     {
-        /* 0.즉시 걸음을 멈추고, 적군을 향해 조준하고 사격함.
-         * 1.난이도에 따라 적을 향한 조준 속도를 다르게 설정.
-         * 2.이 상태에서 적이 만약 시야에서 벗어나면 경계 상태로 전환.
-         */
         gameObject.GetComponent<AI>().movespeed = 0;
 
         Vector2 targetVector = (Enemy.transform.position - gameObject.transform.position);
@@ -91,10 +90,10 @@ public class AIStatePatten : MonoBehaviour
             if (AimToEnemyTime <=0)
             {
                 StopCoroutine(AimandFire);
-                gameObject.GetComponent<AI>().Fire(gameObject.GetComponent<AI>().weaponmanager.curweapon);
+                gameObject.GetComponent<AI>().Fire();
                 if (gameObject.GetComponent<AI>().weaponmanager.curweapon.magazine <= 0)
                 {
-                    Debug.Log("적이 재장전 중...");
+                    //Debug.Log("적이 재장전 중...");
                     gameObject.GetComponent<AI>().Reload(gameObject.GetComponent<AI>().weaponmanager.curweapon);
                 }
             }
@@ -104,25 +103,24 @@ public class AIStatePatten : MonoBehaviour
     }
     void Mission()
     {
-        //임무 상태.이를 테면 폭탄 설치하러 가는 길
-        /*0. 현재 위치에서 임무까지의 거리 경로 탐색.
-        *1. 임무 상태 도중 적군과 조우하면 교전 상태로 전환
-        *2. 목적지 도착 시 임무 수행 또는 그 자리에서 방어 모드 진행.
-        */
-        gameObject.GetComponent<AI>().movespeed = 8f;
+        gameObject.GetComponent<AI>().movespeed = 15f;
 
-        if (!IspathFind) //경로 탐색을 한번만 실행하게 함.
+        if (!IspathFind)
         {
-            pathfinder.FindPath(transform.position, missionPlace.position);
+            Debug.Log("새 경로 찾기");
+            int RandomNode = Mathf.RoundToInt(Random.Range(0, NodeList.Count-1));
+            if(Vector2.Distance(transform.position, NodeList[RandomNode].position)< 0.1f){
+                Debug.Log("동일 경로로 판정. 새 경로 탐색");
+                return; }
+            pathfinder.FindPath(transform.position,NodeList[RandomNode].position);
             nextNode = 0;
-            Debug.Log("경로 탐색 완료");
             IspathFind = true;
         }
         else
         {
             AIPath();
+            Vector2 targetVector = (Enemy.transform.position - gameObject.transform.position);
 
-            Vector2 targetVector = (Enemy.transform.position - gameObject.transform.position); //1
             if (targetVector.sqrMagnitude < distance * distance)
             {
                 float angle = Vector2.Angle(targetVector.normalized, transform.up);
@@ -136,10 +134,6 @@ public class AIStatePatten : MonoBehaviour
     }
     void Alert() //경계 상태.
     {
-        /* 적이 있었던 마지막 위치를 기억하고 일정 시간 동안 그 쪽을 주시함.
-         * 이 시간동안 적이 다시 시야에 들어온다면 교전 상태로 전환
-         * 일정 시간 동안 적이 시야에 잡히지 않는다면, 다시 임무 상태로 전환. 
-         */
         gameObject.GetComponent<AI>().movespeed = 2f;
 
         Vector2 targetVector = (Enemy.transform.position - gameObject.transform.position);
@@ -156,15 +150,12 @@ public class AIStatePatten : MonoBehaviour
             IspathFind = false;
             this.alertTime = 5f;
             nextNode = 0;
-            Debug.Log("경로를 재탐색합니다.");
 
         }
 
     }
     void Die() //사망 상태
     {
-        //현재 들고 있던 무기와 수류탄, 폭탄을 떨어뜨리고, 비활성화함.
-        //dropped weapon();
     }
 
 
@@ -179,15 +170,13 @@ public class AIStatePatten : MonoBehaviour
     IEnumerator AlertTime()
     {
         this.alertTime -= Time.deltaTime;
-        //Debug.Log($"남은 시간{this.alertTime}");
         yield return new WaitForSeconds(0.1f);
     }
-    void AIWeaponPatten() //적이 무기를 쓰는 형태
+    void AIWeaponPatten()
     {
         if (gameObject.GetComponent<AI>().weaponmanager.HAND[0] == null)
         {
             gameObject.GetComponent<AI>().weaponmanager.BuyWeapon(gameObject.GetComponent<AI>().weaponmanager.WeaponInfo[30]);
-            Debug.Log("적이 Ak-47을 구입했습니다.");
             return;
         }
         if (gameObject.GetComponent<AI>().weaponmanager.curweapon != gameObject.GetComponent<AI>().weaponmanager.HAND[0])
@@ -198,6 +187,7 @@ public class AIStatePatten : MonoBehaviour
 
     void AIPath()
     {
+
         if (pathfinder != null)
         {
             if (pathfinder.npcpath.Count > 0)
@@ -205,24 +195,31 @@ public class AIStatePatten : MonoBehaviour
                 List<Node> path = pathfinder.npcpath;
                 Node next = path[nextNode];
                 Vector2 dir = (next.worldPosition - transform.position).normalized;
-                // gameObject.transform.up = dir;
-
                 transform.Translate(dir * Time.deltaTime*gameObject.GetComponent<AI>().movespeed, Space.World);
 
-                if(Vector2.Distance(gameObject.transform.position,next.worldPosition) < 0.1f)
+                if(Vector2.Distance(gameObject.transform.position,next.worldPosition) <= 0.5f)
                 {
-
+                 
                     if (next == path[path.Count - 1])
                     {
-                        IspathFind = false;
-                        ChangeState(State.alert);
+                        Debug.Log("경로 도착 완료");
+                        IspathFind = false;    
                         return;
-                    }
-
+                    }                 
                     nextNode++;
                 }
             }
-            
+            else
+            {
+                Debug.Log($"{pathfinder}의 카운트가 이상합니다");
+                return;
+            }
+
+        }
+        else
+        {
+            Debug.Log($"{pathfinder}가 Null입니다");
+            return;
         }
     }
 

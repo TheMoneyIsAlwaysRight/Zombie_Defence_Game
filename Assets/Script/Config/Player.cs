@@ -2,26 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : Human
 {
+    [SerializeField] GameObject BuyLogo;
     [SerializeField] float movespeed;
     Vector2 moveDir;
     public static Vector2 mouse;
     float angle;
-
+    Coroutine f;
     void cursor()
     {
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //Vector2 dir = ((Vector3)mouse - transform.position).normalized;
-        //transform.up = dir;
-
         angle = Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg;
-        // itDebug.Log($"mousepoint ({Input.mousePosition}), angle : ({angle})");
-
-        // transform.rotation = Quaternion.Euler(0, 0, angle -90);
-
         this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
 
@@ -30,8 +24,22 @@ public class Player : Human
         this.Hpcheck();
         cursor();
         gameObject.transform.Translate(moveDir * movespeed * Time.deltaTime,Space.World);
+        if(gameObject.transform.GetComponentInChildren<WeaponManager>().IsBuyCant)
+        {
+            BuyLogo.SetActive(true);
+        }
+        else
+        {
+            BuyLogo.SetActive(false);
+        }
     }
-
+    private void FixedUpdate()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Fire();
+        }
+    }
     void OnMove(InputValue value)
     {
         moveDir.x = value.Get<Vector2>().x;

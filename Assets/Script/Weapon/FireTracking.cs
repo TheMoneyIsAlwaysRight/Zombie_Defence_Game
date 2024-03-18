@@ -13,17 +13,12 @@ public class FIRETRACKING : MonoBehaviour
     {
         firetrackcoroutine = StartCoroutine(FiretrackerCoroutine()); 
     }
-    private void OnDisable()
-    {
-        StopCoroutine(firetrackcoroutine);
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<Human>())
+        if (collision.gameObject.GetComponent<Human>())
         {
             Human human = collision.gameObject.GetComponent<Human>();
-            human.GetComponent<IDamagable>().Damage(human,weaponManager.curweapon.damage);
-            Debug.Log("hit");
+            human.GetComponent<IDamagable>().Damage(human, weaponManager.curweapon.damage);
         }
     }
     public IEnumerator FiretrackerCoroutine()

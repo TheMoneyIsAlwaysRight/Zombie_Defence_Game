@@ -11,9 +11,4 @@ public class AI : Human
 {
     [SerializeField] public float movespeed;
     Vector2 moveDir;
-    public static Vector2 mouse;
-    void Update()
-    {
-        Hpcheck();
-    }
 }

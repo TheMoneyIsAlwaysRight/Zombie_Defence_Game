@@ -10,7 +10,6 @@ public class Human : MonoBehaviour, IDamagable
         T,
         CT
     }
-
     [SerializeField] bool T;
     [SerializeField] string Team;
     [SerializeField] public int hp; //체력
@@ -22,9 +21,10 @@ public class Human : MonoBehaviour, IDamagable
     [SerializeField] GameObject FireFlash2;
     [SerializeField] public WeaponManager weaponmanager;
     public bool IsReloading { get; private set; }
-    public bool IsFiring { get; private set; }
+    public bool IsRecoil { get; private set; }
 
     Coroutine reloadcoroutine;
+    Coroutine recoilcoroutine;
     float reloadcooltime;
     bool IsReload;
     /*
@@ -48,12 +48,10 @@ public class Human : MonoBehaviour, IDamagable
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Hpcheck();
     }
-
-
     protected void Hpcheck()
     {
         if(hp<=0)
@@ -67,33 +65,36 @@ public class Human : MonoBehaviour, IDamagable
         Destroy(gameObject);
     }
 
-    public IEnumerator FireCoroutine(Weapon curweapon)
+    public IEnumerator RecoilCoroutine()
     {
+        IsRecoil = true;
         yield return new WaitForSeconds(weaponmanager.curweapon.firecooltime);
-        IsFiring = false;
+        IsRecoil = false;
     }
 
-
-    public void Fire(Weapon curweapon)
+    public void Fire()
     {
-        //if (IsFiring || curweapon == null)
-        //{
-        //    Debug.Log("발사 쿨타임 즉 반동");
-        //    return;
-        //}
+        Weapon curweapon = transform.gameObject.GetComponentInChildren<WeaponManager>().curweapon;
 
+        if (IsRecoil)
+        {
+            return;
+        }
+        recoilcoroutine = StartCoroutine(RecoilCoroutine());
+        if(curweapon == transform.gameObject.GetComponentInChildren<WeaponManager>().HAND[4])
+        {
+            return;
+        }
         if (curweapon == transform.gameObject.GetComponentInChildren<WeaponManager>().HAND[2])
         {
             animator.SetBool("Knife", true);
             Vector3 fireDir = transform.up;
             firetrack.gameObject.SetActive(true);
             curweapon.magazine--;
-            Debug.Log("칼질");
             animator.SetBool("Knife", false);
         }
         else if (curweapon.magazine > 0)
-        { 
-           
+        {         
             float bulletfireRandom;
             animator.SetBool("Fire", true);
             Vector3 fireDir = transform.up;
@@ -107,11 +108,8 @@ public class Human : MonoBehaviour, IDamagable
             {
                 FireFlash2.SetActive(true);
             }
-            Debug.DrawRay(transform.position, fireDir * float.MaxValue, Color.red, 1f);
             curweapon.magazine--;
-            Debug.Log("사격");
             animator.SetBool("Fire", false);
-            
         }
 
     }
@@ -121,10 +119,7 @@ public class Human : MonoBehaviour, IDamagable
         {
             return; // 이미 재장전 중이거나 무기가 없는 경우 재장전을 시작하지 않음
         }
-
         IsReloading = true;
-
-        Debug.Log("재장전 시작");
         animator.SetBool("Reload", true);
         StartCoroutine(ReloadCoroutine(curWeapon));
     }
@@ -139,13 +134,12 @@ public class Human : MonoBehaviour, IDamagable
         {
             curWeapon.maxammo -= bulletsNeeded;
             curWeapon.magazine += bulletsNeeded;
-            Debug.Log("재장전 완료");
         }
         else
         {
             curWeapon.magazine += curWeapon.maxammo;
             curWeapon.maxammo = 0;
-            Debug.Log("재장전 완료. 남은 탄약이 부족합니다.");
+           
         }
         animator.SetBool("Reload", false);
         IsReloading = false;

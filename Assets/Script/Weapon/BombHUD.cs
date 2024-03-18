@@ -28,7 +28,6 @@ public class BombHUD: MonoBehaviour
     private void Update()
     {
         a = StartCoroutine(BombTimer());
-        Debug.Log($"{bombTimer}");
         count.text = bombTimer.ToString();
         if (bombTimer <= 0)
         {

@@ -13,14 +13,14 @@ public class BOMB : MonoBehaviour
 
    IEnumerator Planting()
    {
-        Debug.Log($"ÆøÅº ¼³Ä¡Áß : {PlantingTime}");
         PlantingTime -= Time.deltaTime;
+        Debug.Log($"{PlantingTime}");
         yield return new WaitForSeconds(PlantingTime);
    }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && transform.parent.gameObject.GetComponent<WeaponManager>().CanIPlantBomb == true)
         {
             if (!IsPlanted && PlantingTime <= 0)
             {
@@ -36,8 +36,17 @@ public class BOMB : MonoBehaviour
             else
             {
                 bombplant = StartCoroutine(Planting());
+                if (Input.GetKeyUp(KeyCode.Mouse0))
+                {
+                    Debug.Log("ÆøÅº ¼³Ä¡ Ãë¼Ò");
+                    PlantingTime = 5f;
+                }
             }
 
+        }
+        else
+        {
+            Debug.Log("ÆøÅº ¼³Ä¡ ±¸¿ªÀÌ ¾Æ´Õ´Ï´Ù!");
         }
     }
     }

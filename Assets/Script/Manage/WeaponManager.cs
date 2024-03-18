@@ -16,6 +16,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] public Weapon curweapon; //현재 무기
     [SerializeField] public Weapon prevweapon;
     [SerializeField] GameObject BuyMenu;
+    [SerializeField] public bool CanIPlantBomb;
+    [SerializeField] public bool IsBuyCant;
 
     bool weaponcooltime;
 
@@ -47,19 +49,6 @@ public class WeaponManager : MonoBehaviour
     {
         curweapon.gameObject.SetActive(true);
     }
-    void OnFire(InputValue value)
-    {
-
-        if (value.isPressed)
-        {
-            if (curweapon != null)
-            {
-                user.Fire(curweapon);
-            }
-        }
-
-    }
-
     void OnReload()
     {
         if (user != null)
@@ -137,13 +126,20 @@ public class WeaponManager : MonoBehaviour
     void OnBomb(InputValue button) { if (HAND[4] != null) { ChangeWeapon(HAND[4]); } }
     void OnBuyMenu(InputValue button)
     {
-        if(BuyMenu.activeSelf == true)
+        if (IsBuyCant)
         {
-            BuyMenu.SetActive(false);
+            if (BuyMenu.activeSelf == true)
+            {
+                BuyMenu.SetActive(false);
+            }
+            else if (BuyMenu.activeSelf == false)
+            {
+                BuyMenu.SetActive(true);
+            }
         }
-        else if(BuyMenu.activeSelf == false)
+        else
         {
-            BuyMenu.SetActive(true);
+            Debug.Log("상점 지역이 아닙니다.");
         }
     }
 
@@ -178,26 +174,31 @@ public class WeaponManager : MonoBehaviour
 
     public void BuyWeapon(Weapon purchaseweapon)
     {
-        if (HAND[purchaseweapon.weaponstyle] != null) //그 스타일의 무기를 이미 갖고 있었다면
+        if(IsBuyCant)
         {
-            if (HAND[purchaseweapon.weaponstyle] != purchaseweapon) //기존 무기와 다른 무기를 사려한다면
-            {
-                DropWeapon(); //그 무기를 버리고, 현재 목록에서 삭제. 칼무기로 바뀜.
-                HAND[purchaseweapon.weaponstyle] = purchaseweapon;
-                ChangeWeapon(HAND[purchaseweapon.weaponstyle]);
-            }
-            else if(HAND[purchaseweapon.weaponstyle] == purchaseweapon)
-            {
-                Debug.Log("같은 무기를 사려했습니다.");
-                return;
-            }
             
+            if (HAND[purchaseweapon.weaponstyle] != null) //그 스타일의 무기를 이미 갖고 있었다면
+            {
+                if (HAND[purchaseweapon.weaponstyle] != purchaseweapon) //기존 무기와 다른 무기를 사려한다면
+                {
+                    DropWeapon(); //그 무기를 버리고, 현재 목록에서 삭제. 칼무기로 바뀜.
+                    HAND[purchaseweapon.weaponstyle] = purchaseweapon;
+                    ChangeWeapon(HAND[purchaseweapon.weaponstyle]);
+                }
+                else if (HAND[purchaseweapon.weaponstyle] == purchaseweapon)
+                {
+                    Debug.Log("같은 무기를 사려했습니다.");
+                    return;
+                }
+
+            }
+            else //그 번호에 무기가 없을 경우.
+            {
+                HAND[purchaseweapon.weaponstyle] = purchaseweapon;
+                ChangeWeapon(purchaseweapon);
+            }
         }
-        else //그 번호에 무기가 없을 경우.
-        {
-            HAND[purchaseweapon.weaponstyle] = purchaseweapon;
-            ChangeWeapon(purchaseweapon);
-        }
+
     }
     public void DefuseBomb()
     {
@@ -209,8 +210,11 @@ public class WeaponManager : MonoBehaviour
     }
     public void BombPlanted()
     {
-        ChangeWeapon(HAND[2]);
-        prevweapon = null;
-        HAND[4] = null;
+        if (CanIPlantBomb)
+        {
+            ChangeWeapon(HAND[2]);
+            prevweapon = null;
+            HAND[4] = null;
+        }
     }
 }
