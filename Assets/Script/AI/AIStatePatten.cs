@@ -49,6 +49,10 @@ public class AIStatePatten : MonoBehaviour
     private void Update()
     {
         AIWeaponPatten();
+    }
+
+    private void FixedUpdate()
+    {
         switch (curstate)
         {
             case State.shopping:
@@ -67,7 +71,6 @@ public class AIStatePatten : MonoBehaviour
                 Die();
                 break;
         }
-
     }
     void ChangeState(State state) //상태 바꾸기
     {
@@ -109,9 +112,12 @@ public class AIStatePatten : MonoBehaviour
         {
             Debug.Log("새 경로 찾기");
             int RandomNode = Mathf.RoundToInt(Random.Range(0, NodeList.Count-1));
-            if(Vector2.Distance(transform.position, NodeList[RandomNode].position)< 0.1f){
+
+            if(Vector2.Distance(transform.position, NodeList[RandomNode].position)< 0.1f)
+            {
                 Debug.Log("동일 경로로 판정. 새 경로 탐색");
-                return; }
+                return; 
+            }
             pathfinder.FindPath(transform.position,NodeList[RandomNode].position);
             nextNode = 0;
             IspathFind = true;
@@ -159,14 +165,14 @@ public class AIStatePatten : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
-        Handles.color = new Color(2f, 0f, 0f, 0.1f);
+    //private void OnDrawGizmos()
+    //{
+    //    Handles.color = new Color(2f, 0f, 0f, 0.1f);
 
-        Handles.DrawSolidArc(transform.position, transform.forward, transform.up, angleRange / 2, distance);
+    //    Handles.DrawSolidArc(transform.position, transform.forward, transform.up, angleRange / 2, distance);
 
-        Handles.DrawSolidArc(transform.position, transform.forward, transform.up, -angleRange / 2, distance);
-    }
+    //    Handles.DrawSolidArc(transform.position, transform.forward, transform.up, -angleRange / 2, distance);
+    //}
     IEnumerator AlertTime()
     {
         this.alertTime -= Time.deltaTime;
@@ -188,7 +194,7 @@ public class AIStatePatten : MonoBehaviour
     void AIPath()
     {
 
-        if (pathfinder != null)
+        if (pathfinder.npcpath != null)
         {
             if (pathfinder.npcpath.Count > 0)
             {
@@ -209,16 +215,12 @@ public class AIStatePatten : MonoBehaviour
                     nextNode++;
                 }
             }
-            else
-            {
-                Debug.Log($"{pathfinder}의 카운트가 이상합니다");
-                return;
-            }
 
         }
         else
         {
             Debug.Log($"{pathfinder}가 Null입니다");
+            ChangeState(State.alert);
             return;
         }
     }

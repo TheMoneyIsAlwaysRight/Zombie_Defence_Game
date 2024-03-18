@@ -20,6 +20,9 @@ public class Human : MonoBehaviour, IDamagable
     [SerializeField] GameObject FireFlash;
     [SerializeField] GameObject FireFlash2;
     [SerializeField] public WeaponManager weaponmanager;
+    [SerializeField] AudioClip reloadsound;
+    [SerializeField] AudioClip reloadsound2;
+    [SerializeField] public AudioSource audiosource;
     public bool IsReloading { get; private set; }
     public bool IsRecoil { get; private set; }
 
@@ -70,19 +73,19 @@ public class Human : MonoBehaviour, IDamagable
         IsRecoil = true;
         yield return new WaitForSeconds(weaponmanager.curweapon.firecooltime);
         IsRecoil = false;
+        //audiosource.Play(reloadsound);
     }
 
     public void Fire()
     {
         Weapon curweapon = transform.gameObject.GetComponentInChildren<WeaponManager>().curweapon;
-
         if (IsRecoil)
-        {
+        { //¹ß»ç ÄðÅ¸ÀÓ µ¿¾È Á¦¿Ü
             return;
         }
         recoilcoroutine = StartCoroutine(RecoilCoroutine());
         if(curweapon == transform.gameObject.GetComponentInChildren<WeaponManager>().HAND[4])
-        {
+        { //ÆøÅº Á¦¿Ü
             return;
         }
         if (curweapon == transform.gameObject.GetComponentInChildren<WeaponManager>().HAND[2])
@@ -110,6 +113,7 @@ public class Human : MonoBehaviour, IDamagable
             }
             curweapon.magazine--;
             animator.SetBool("Fire", false);
+            audiosource.Play();
         }
 
     }

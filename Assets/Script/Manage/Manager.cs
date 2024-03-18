@@ -8,14 +8,14 @@ public class Manager : MonoBehaviour//½Ì±ÛÅæ ¸Å´ÏÀú
     static Manager instance;
     static GameManager gamemanager;
     static DataManager datamanager;
-    static SoundManager soundmanager;
+    //static SoundManager soundmanager;
     static UIManager uimanager;
     static SceneManager scenemanager;
     
     // property
     public GameManager Game { get { return gamemanager; } }
     public DataManager Data { get { return datamanager; } }
-    public SoundManager Sound { get { return soundmanager; } }
+    //public SoundManager Sound { get { return soundmanager; } }
     public UIManager Ui { get { return uimanager; } }
     public SceneManager scene { get { return scenemanager; } }
 

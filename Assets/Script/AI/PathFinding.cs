@@ -43,12 +43,13 @@ public class PathFinding : MonoBehaviour
             openSet.Remove(node);
             visited.Add(node);
 
-            if (node == targetNode)
+            if (node == targetNode) //경로를 다 찾았다면.
             {
                 RetracePath(startNode, targetNode);
                 return;
 
             }
+
             foreach (Node neighbour in grid.GetNeighbors(node))
             {
                 if (!neighbour.walkable || visited.Contains(neighbour))

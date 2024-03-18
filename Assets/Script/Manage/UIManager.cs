@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     {
         this.hp.text = player.hp.ToString();
         this.ap.text = player.ap.ToString();
-
     }
 
 }

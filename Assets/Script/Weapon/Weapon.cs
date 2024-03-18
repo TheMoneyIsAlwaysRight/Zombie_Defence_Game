@@ -23,7 +23,8 @@ public class Weapon : MonoBehaviour
      [SerializeField] public float firecooltime;
      [SerializeField] public float reloadtime;
      [SerializeField] public GameObject dropPrefab;
-     [SerializeField] public GameObject firepoint;
+    [SerializeField] public GameObject firepoint;
+    [SerializeField] public AudioClip FireSound;
 
     void Awake()
     {

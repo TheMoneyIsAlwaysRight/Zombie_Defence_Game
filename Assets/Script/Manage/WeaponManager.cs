@@ -38,7 +38,7 @@ public class WeaponManager : MonoBehaviour
         }
         HAND[2] = WeaponInfo[50]; // weapon number 50 -> knife
         curweapon = HAND[2];
-
+        user.audiosource.clip = curweapon.FireSound;
 
     }
     void Start()
@@ -159,6 +159,7 @@ public class WeaponManager : MonoBehaviour
         {   prevweapon = curweapon;
             prevweapon.gameObject.SetActive(false);
             curweapon = swapweapon;
+
         }
         else if(HAND[swapweapon.weaponstyle] != swapweapon)
         {
@@ -169,6 +170,7 @@ public class WeaponManager : MonoBehaviour
             curweapon.gameObject.SetActive(true);
         }
 
+        user.audiosource.clip = swapweapon.FireSound;
 
     }
 

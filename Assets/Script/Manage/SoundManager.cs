@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class SoundManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+//public class SoundManager : MonoBehaviour
+//{
+//    Dictionary<int, AudioClip> weaponSound = new Dictionary<int, AudioClip>();
+//    [SerializeField] WeaponManager weaponmanager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+//    private void Start()
+//    {
+//        foreach(KeyValuePair<int,Weapon> x in weaponmanager.weaponinfo)
+//        {
+
+//        }
+//        weaponmanager.WeaponInfo
+//    }
+
+
+
+//    void PlaySound(Weapon weapon,AudioSource audiosource)
+//    {
+
+//    }
+//}
