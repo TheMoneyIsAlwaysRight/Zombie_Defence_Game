@@ -7,6 +7,6 @@ public class ChangeScene : MonoBehaviour
 {
     public void ChangeDust()
     {
-        SceneManager.LoadScene("Dust");
+        SceneManager.LoadScene("InGameScene");
     }
 }
